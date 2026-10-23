@@ -1,0 +1,12 @@
+{
+  "$schema": "../schema/preset.schema.json",
+  "description": "Pad types and their type-specific keys. No slot here: give one on the command line with --slot.",
+  "name": "Drums + Controls",
+  "pad1": { "type": "Note", "note": 36, "velocity": 0, "curve": 2, "channel": 10,
+            "color1": "Blue", "color2": "Green", "color3": "Yellow", "color4": "Red" },
+  "pad2": { "type": "Note", "note": 38, "channel": 10 },
+  "pad3": { "type": "CC Toggle", "cc": 80, "on_value": 127, "off_value": 0, "color1": "LED Off", "color2": "Orange" },
+  "pad4": { "type": "CC Momentary", "cc": 64, "press_value": 127, "release_value": 0 },
+  "pad5": { "type": "Program Change", "program": 5, "bank_lsb": 0, "bank_msb": 0 },
+  "pad8": { "type": "Panic" }
+}

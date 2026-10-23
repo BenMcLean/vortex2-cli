@@ -1,0 +1,4538 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Alesis Vortex Wireless 2 preset",
+  "description": "A (possibly partial) preset. Omitted fields keep their value in the base preset.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "description": "Free text; ignored by the tool."
+    },
+    "slot": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 25,
+      "description": "Target slot 1..25. Optional; the command line can override it."
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 16,
+      "pattern": "^[\\u0020-\\u007e]*$",
+      "description": "Preset name, up to 16 printable ASCII characters."
+    },
+    "program_change": {
+      "type": "object",
+      "properties": {
+        "send_on_load": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Send Program Change and Bank Select when this preset is loaded."
+        },
+        "msb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bank Select MSB."
+        },
+        "lsb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bank Select LSB."
+        },
+        "program": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program number."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Program Change (+ Bank Select) message sent when the preset is loaded on the keytar."
+    },
+    "split": {
+      "type": "object",
+      "properties": {
+        "curve": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Velocity curve applied to the keybed."
+        },
+        "enabled": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "true: keybed is divided at the split key; false: single zone."
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 36
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Number of keys, counting from the lowest, that belong to the lower zone."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Splits the keybed into a lower and an upper zone."
+    },
+    "upper": {
+      "type": "object",
+      "properties": {
+        "transpose": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": -12,
+              "maximum": 12
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Semitones; 12 is one octave."
+        },
+        "midi_to_din": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "true: this zone's messages also go out of the DIN MIDI output; false: USB only."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Upper keyboard zone."
+    },
+    "lower": {
+      "type": "object",
+      "properties": {
+        "transpose": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": -12,
+              "maximum": 12
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Semitones; 12 is one octave."
+        },
+        "midi_to_din": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "true: this zone's messages also go out of the DIN MIDI output; false: USB only."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Lower keyboard zone."
+    },
+    "sustain": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Sustain pedal input."
+    },
+    "wheel": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "enum": [
+                "Normal",
+                "Reverse"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Normal: turning right raises pitch; Reverse: it lowers it."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Pitch wheel."
+    },
+    "reserved": {
+      "type": "object",
+      "properties": {
+        "wheel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+        },
+        "tilt": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+        },
+        "fader1": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+        },
+        "fader2": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+        },
+        "fader3": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+        },
+        "fader4": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+        },
+        "fader5": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+        },
+        "fader6": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+        },
+        "fader7": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Bytes the vendor editor never shows. Preserved when reading from the keytar; omit unless you know why."
+    },
+    "volume": {
+      "type": "object",
+      "properties": {
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number sent."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Volume slider (S1)."
+    },
+    "ribbon": {
+      "type": "object",
+      "properties": {
+        "default_bank": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Bank active when the preset loads."
+        },
+        "release_mode": {
+          "anyOf": [
+            {
+              "enum": [
+                "Return",
+                "Latch"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Latch: nothing is sent when the finger lifts; Return: the controller's default is sent."
+        },
+        "bank1": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "CC",
+                    "Pitch Bend"
+                  ]
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Send a controller (CC) or pitch bend."
+            },
+            "cc": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Controller number (used when type is CC)."
+            },
+            "min": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Lowest value sent."
+            },
+            "max": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Highest value sent."
+            },
+            "channel": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 16
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "MIDI channel."
+            }
+          },
+          "additionalProperties": false
+        },
+        "bank2": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "CC",
+                    "Pitch Bend"
+                  ]
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Send a controller (CC) or pitch bend."
+            },
+            "cc": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Controller number (used when type is CC)."
+            },
+            "min": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Lowest value sent."
+            },
+            "max": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Highest value sent."
+            },
+            "channel": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 16
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "MIDI channel."
+            }
+          },
+          "additionalProperties": false
+        },
+        "bank3": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "CC",
+                    "Pitch Bend"
+                  ]
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Send a controller (CC) or pitch bend."
+            },
+            "cc": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Controller number (used when type is CC)."
+            },
+            "min": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Lowest value sent."
+            },
+            "max": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "Highest value sent."
+            },
+            "channel": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 16
+                },
+                {
+                  "$ref": "#/$defs/raw"
+                }
+              ],
+              "description": "MIDI channel."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "description": "Touch ribbon, with three selectable banks."
+    },
+    "tilt": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "CC",
+                "Pitch Bend"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Send a controller (CC) or pitch bend."
+        },
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number (used when type is CC)."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Tilt (accelerometer) control."
+    },
+    "fader1": {
+      "type": "object",
+      "properties": {
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number sent."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Fader (1..8)."
+    },
+    "fader2": {
+      "type": "object",
+      "properties": {
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number sent."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Fader (1..8)."
+    },
+    "fader3": {
+      "type": "object",
+      "properties": {
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number sent."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Fader (1..8)."
+    },
+    "fader4": {
+      "type": "object",
+      "properties": {
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number sent."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Fader (1..8)."
+    },
+    "fader5": {
+      "type": "object",
+      "properties": {
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number sent."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Fader (1..8)."
+    },
+    "fader6": {
+      "type": "object",
+      "properties": {
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number sent."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Fader (1..8)."
+    },
+    "fader7": {
+      "type": "object",
+      "properties": {
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number sent."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Fader (1..8)."
+    },
+    "fader8": {
+      "type": "object",
+      "properties": {
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Controller number sent."
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Lowest value sent."
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Highest value sent."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel."
+        }
+      },
+      "additionalProperties": false,
+      "description": "Fader (1..8)."
+    },
+    "pad1": {
+      "type": "object",
+      "description": "Pad (1..8).",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "Note",
+                "CC Toggle",
+                "CC Momentary",
+                "Program Change",
+                "Panic"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "What the pad does. Determines which of the value keys below apply."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel the pad sends on."
+        },
+        "color1": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: idle. Other types: idle/released."
+        },
+        "color2": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: struck with velocity 1-63. Other types: on/pressed."
+        },
+        "color3": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 64-95."
+        },
+        "color4": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 96-127."
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: note number."
+        },
+        "velocity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: fixed velocity; 0 means use the velocity curve."
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: velocity curve."
+        },
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle / CC Momentary pads: controller number."
+        },
+        "on_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched on."
+        },
+        "off_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched off."
+        },
+        "press_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on press."
+        },
+        "release_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on release."
+        },
+        "program": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: program number."
+        },
+        "bank_lsb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank LSB."
+        },
+        "bank_msb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank MSB."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Note"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Toggle"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Momentary"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "on_value": false,
+              "off_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Program Change"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Panic"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        }
+      ]
+    },
+    "pad2": {
+      "type": "object",
+      "description": "Pad (1..8).",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "Note",
+                "CC Toggle",
+                "CC Momentary",
+                "Program Change",
+                "Panic"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "What the pad does. Determines which of the value keys below apply."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel the pad sends on."
+        },
+        "color1": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: idle. Other types: idle/released."
+        },
+        "color2": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: struck with velocity 1-63. Other types: on/pressed."
+        },
+        "color3": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 64-95."
+        },
+        "color4": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 96-127."
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: note number."
+        },
+        "velocity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: fixed velocity; 0 means use the velocity curve."
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: velocity curve."
+        },
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle / CC Momentary pads: controller number."
+        },
+        "on_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched on."
+        },
+        "off_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched off."
+        },
+        "press_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on press."
+        },
+        "release_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on release."
+        },
+        "program": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: program number."
+        },
+        "bank_lsb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank LSB."
+        },
+        "bank_msb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank MSB."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Note"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Toggle"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Momentary"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "on_value": false,
+              "off_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Program Change"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Panic"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        }
+      ]
+    },
+    "pad3": {
+      "type": "object",
+      "description": "Pad (1..8).",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "Note",
+                "CC Toggle",
+                "CC Momentary",
+                "Program Change",
+                "Panic"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "What the pad does. Determines which of the value keys below apply."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel the pad sends on."
+        },
+        "color1": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: idle. Other types: idle/released."
+        },
+        "color2": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: struck with velocity 1-63. Other types: on/pressed."
+        },
+        "color3": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 64-95."
+        },
+        "color4": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 96-127."
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: note number."
+        },
+        "velocity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: fixed velocity; 0 means use the velocity curve."
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: velocity curve."
+        },
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle / CC Momentary pads: controller number."
+        },
+        "on_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched on."
+        },
+        "off_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched off."
+        },
+        "press_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on press."
+        },
+        "release_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on release."
+        },
+        "program": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: program number."
+        },
+        "bank_lsb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank LSB."
+        },
+        "bank_msb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank MSB."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Note"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Toggle"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Momentary"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "on_value": false,
+              "off_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Program Change"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Panic"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        }
+      ]
+    },
+    "pad4": {
+      "type": "object",
+      "description": "Pad (1..8).",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "Note",
+                "CC Toggle",
+                "CC Momentary",
+                "Program Change",
+                "Panic"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "What the pad does. Determines which of the value keys below apply."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel the pad sends on."
+        },
+        "color1": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: idle. Other types: idle/released."
+        },
+        "color2": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: struck with velocity 1-63. Other types: on/pressed."
+        },
+        "color3": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 64-95."
+        },
+        "color4": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 96-127."
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: note number."
+        },
+        "velocity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: fixed velocity; 0 means use the velocity curve."
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: velocity curve."
+        },
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle / CC Momentary pads: controller number."
+        },
+        "on_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched on."
+        },
+        "off_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched off."
+        },
+        "press_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on press."
+        },
+        "release_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on release."
+        },
+        "program": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: program number."
+        },
+        "bank_lsb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank LSB."
+        },
+        "bank_msb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank MSB."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Note"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Toggle"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Momentary"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "on_value": false,
+              "off_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Program Change"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Panic"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        }
+      ]
+    },
+    "pad5": {
+      "type": "object",
+      "description": "Pad (1..8).",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "Note",
+                "CC Toggle",
+                "CC Momentary",
+                "Program Change",
+                "Panic"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "What the pad does. Determines which of the value keys below apply."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel the pad sends on."
+        },
+        "color1": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: idle. Other types: idle/released."
+        },
+        "color2": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: struck with velocity 1-63. Other types: on/pressed."
+        },
+        "color3": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 64-95."
+        },
+        "color4": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 96-127."
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: note number."
+        },
+        "velocity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: fixed velocity; 0 means use the velocity curve."
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: velocity curve."
+        },
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle / CC Momentary pads: controller number."
+        },
+        "on_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched on."
+        },
+        "off_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched off."
+        },
+        "press_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on press."
+        },
+        "release_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on release."
+        },
+        "program": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: program number."
+        },
+        "bank_lsb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank LSB."
+        },
+        "bank_msb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank MSB."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Note"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Toggle"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Momentary"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "on_value": false,
+              "off_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Program Change"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Panic"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        }
+      ]
+    },
+    "pad6": {
+      "type": "object",
+      "description": "Pad (1..8).",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "Note",
+                "CC Toggle",
+                "CC Momentary",
+                "Program Change",
+                "Panic"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "What the pad does. Determines which of the value keys below apply."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel the pad sends on."
+        },
+        "color1": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: idle. Other types: idle/released."
+        },
+        "color2": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: struck with velocity 1-63. Other types: on/pressed."
+        },
+        "color3": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 64-95."
+        },
+        "color4": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 96-127."
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: note number."
+        },
+        "velocity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: fixed velocity; 0 means use the velocity curve."
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: velocity curve."
+        },
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle / CC Momentary pads: controller number."
+        },
+        "on_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched on."
+        },
+        "off_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched off."
+        },
+        "press_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on press."
+        },
+        "release_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on release."
+        },
+        "program": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: program number."
+        },
+        "bank_lsb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank LSB."
+        },
+        "bank_msb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank MSB."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Note"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Toggle"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Momentary"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "on_value": false,
+              "off_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Program Change"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Panic"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        }
+      ]
+    },
+    "pad7": {
+      "type": "object",
+      "description": "Pad (1..8).",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "Note",
+                "CC Toggle",
+                "CC Momentary",
+                "Program Change",
+                "Panic"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "What the pad does. Determines which of the value keys below apply."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel the pad sends on."
+        },
+        "color1": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: idle. Other types: idle/released."
+        },
+        "color2": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: struck with velocity 1-63. Other types: on/pressed."
+        },
+        "color3": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 64-95."
+        },
+        "color4": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 96-127."
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: note number."
+        },
+        "velocity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: fixed velocity; 0 means use the velocity curve."
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: velocity curve."
+        },
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle / CC Momentary pads: controller number."
+        },
+        "on_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched on."
+        },
+        "off_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched off."
+        },
+        "press_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on press."
+        },
+        "release_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on release."
+        },
+        "program": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: program number."
+        },
+        "bank_lsb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank LSB."
+        },
+        "bank_msb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank MSB."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Note"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Toggle"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Momentary"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "on_value": false,
+              "off_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Program Change"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Panic"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        }
+      ]
+    },
+    "pad8": {
+      "type": "object",
+      "description": "Pad (1..8).",
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "enum": [
+                "Note",
+                "CC Toggle",
+                "CC Momentary",
+                "Program Change",
+                "Panic"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "What the pad does. Determines which of the value keys below apply."
+        },
+        "channel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 16
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "MIDI channel the pad sends on."
+        },
+        "color1": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: idle. Other types: idle/released."
+        },
+        "color2": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour. Note pads: struck with velocity 1-63. Other types: on/pressed."
+        },
+        "color3": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 64-95."
+        },
+        "color4": {
+          "anyOf": [
+            {
+              "enum": [
+                "LED Off",
+                "Chartreuse",
+                "Green",
+                "Aquamarine",
+                "Cyan",
+                "Azure",
+                "Blue",
+                "Violet",
+                "Magenta",
+                "Rose",
+                "Red",
+                "Orange",
+                "Yellow",
+                "White"
+              ]
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "LED colour (Note pads only): struck with velocity 96-127."
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: note number."
+        },
+        "velocity": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: fixed velocity; 0 means use the velocity curve."
+        },
+        "curve": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 8
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Note pads: velocity curve."
+        },
+        "cc": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle / CC Momentary pads: controller number."
+        },
+        "on_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched on."
+        },
+        "off_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Toggle pads: value sent when switched off."
+        },
+        "press_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on press."
+        },
+        "release_value": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "CC Momentary pads: value sent on release."
+        },
+        "program": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: program number."
+        },
+        "bank_lsb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank LSB."
+        },
+        "bank_msb": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127
+            },
+            {
+              "$ref": "#/$defs/raw"
+            }
+          ],
+          "description": "Program Change pads: bank MSB."
+        }
+      },
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Note"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Toggle"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "CC Momentary"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "on_value": false,
+              "off_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Program Change"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "Panic"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "note": false,
+              "velocity": false,
+              "curve": false,
+              "cc": false,
+              "on_value": false,
+              "off_value": false,
+              "press_value": false,
+              "release_value": false,
+              "program": false,
+              "bank_lsb": false,
+              "bank_msb": false
+            }
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "raw": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        }
+      },
+      "required": [
+        "raw"
+      ],
+      "additionalProperties": false,
+      "description": "Escape hatch for a byte outside the valid range; tools refuse to write it unless forced."
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../schema/preset.schema.json",
+  "description": "A partial preset: only what is listed changes. Everything else keeps the keytar's current value (or Alesis's factory default when writing to a file).",
+  "slot": 3,
+  "name": "Lead Synth",
+  "program_change": { "send_on_load": true, "program": 12 },
+  "wheel": { "direction": "Reverse" },
+  "fader1": { "cc": 74, "min": 0, "max": 127, "channel": 1 },
+  "fader2": { "cc": 71, "channel": 1 }
+}
