@@ -15,7 +15,14 @@ from dataclasses import dataclass
 from . import codec
 from . import fields as F
 from .codec import FormatError
-from .document import DocError, apply_doc, dump_json, parse_json, preset_to_doc
+from .document import (
+	DocError,
+	apply_doc,
+	dump_json,
+	is_complete_doc,
+	parse_json,
+	preset_to_doc,
+)
 from .preset import Preset, factory
 
 FORMATS = ("json", "vw2", "syx")
@@ -37,7 +44,9 @@ class Loaded:
 
 	@property
 	def complete(self) -> bool:
-		return self.preset is not None
+		"""True if the input states the whole preset (``vw2``/``syx``, or JSON naming every setting), so
+		the result does not depend on the base it is resolved against."""
+		return self.preset is not None or is_complete_doc(self.doc)
 
 
 def detect(data: bytes) -> str:

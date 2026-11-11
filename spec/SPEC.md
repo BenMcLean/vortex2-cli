@@ -709,19 +709,19 @@ Measured by sending the following to the device (each from a known state, waitin
 Conclusions **[M]** (each from the trials above or from the first, equivalent run of the same probe):
 
 1. **Message size matters; the length field does not.** A Set whose total size is exactly 182 bytes is applied whatever the two length
-   bytes contain (tested: 0, 1, 127, 171, 173, 16383). A Set that is one byte short, or has one extra byte, is ignored, even when its
-   length field is adjusted to the true length (171). A writer MUST still write the correct length (172), and a reader SHOULD check it.
+	bytes contain (tested: 0, 1, 127, 171, 173, 16383). A Set that is one byte short, or has one extra byte, is ignored, even when its
+	length field is adjusted to the true length (171). A writer MUST still write the correct length (172), and a reader SHOULD check it.
 2. **The three identification fields must match exactly.** A Get whose device byte is `53` instead of `52`, whose model byte is `5F`
-   instead of `5E`, or whose manufacturer byte is `0F` instead of `0E`, receives no reply.
+	instead of `5E`, or whose manufacturer byte is `0F` instead of `0E`, receives no reply.
 3. **Which slot a Set writes** is determined by the slot byte in the body (message offset 9); a Set with slot byte 3 changed slot 3.
 4. **A Get must be exactly 11 bytes.** A Get with length field 0, with length field 2, or with one extra trailing byte receives no reply.
 5. **No validation of values.** Writing the byte `7F` into a channel, pad type, pad colour, pad curve, split curve, transpose, split key,
-   ribbon type or send-on-load field was stored and returned unchanged. The device will therefore never protect you from an invalid
-   preset; the writer must validate against section 4.2.
+	ribbon type or send-on-load field was stored and returned unchanged. The device will therefore never protect you from an invalid
+	preset; the writer must validate against section 4.2.
 6. **Names are stored verbatim.** A 16-character name with no terminator was stored and returned in full; a name containing the bytes
-   `7F 01 1F 20 41 00 42` was returned unchanged (the device does not truncate at `00` or sanitise control characters).
+	`7F 01 1F 20 41 00 42` was returned unchanged (the device does not truncate at `00` or sanitise control characters).
 7. **Slot indexes 25..127**: a Get returns a well-formed reply with slot byte `00`, Program Change number `00` and the default
-   the default preset of section 5.2 (a firmware template, not slot 0's content).
+	the default preset of section 5.2 (a firmware template, not slot 0's content).
 8. Messages that the device ignores produce **no error response**: silence is the only signal.
 
 
@@ -850,16 +850,16 @@ of the preset editor".
 Conclusions **[M]**:
 
 1. **The editor applies the file as it reads it and stops at the first problem.** It is not transactional: a bad file can leave the
-   editor *partially* loaded (earlier records applied, later ones untouched) while showing an error.
+	editor *partially* loaded (earlier records applied, later ones untouched) while showing an error.
 2. **Prefix check.** Changing the first byte of the file (`01` to `02`), or zeroing all constant bytes, applies nothing at all and shows
-   the error.
+	the error.
 3. **Record-header checks.** Changing the size byte of the first record header applies only what precedes that header (the name) and
-   shows the error. Changing the last integer of a header (`0E` to `0F`) applies everything before that record, none of that record or
-   later ones, and shows the error. Changing a record's *index* byte (`01` to `09`) shows no error: that one record's values are
-   skipped and every other record is applied, so records are identified by their index, not by position.
+	shows the error. Changing the last integer of a header (`0E` to `0F`) applies everything before that record, none of that record or
+	later ones, and shows the error. Changing a record's *index* byte (`01` to `09`) shows no error: that one record's values are
+	skipped and every other record is applied, so records are identified by their index, not by position.
 4. **File size.** Trailing extra bytes (1 or 29) are tolerated but trigger the error after all values were applied. A file *shorter*
-   than 1071 bytes raises **no error**: records fully inside the file are applied and the rest are left untouched; a file one byte short
-   applies everything except the final value byte, which becomes 0.
+	than 1071 bytes raises **no error**: records fully inside the file are applied and the rest are left untouched; a file one byte short
+	applies everything except the final value byte, which becomes 0.
 5. **No range checking.** An out-of-range value (`pad1.type = 127`) loads and saves back unchanged.
 
 Consequences for implementers: a **writer** MUST produce exactly 1071 bytes with the exact template constants (anything else may load
@@ -894,18 +894,18 @@ files generated from this specification were loaded into the vendor editor, whic
 The device never acknowledges anything, so reliability comes from verifying by reading back.
 
 - **Read slot *n*** (0..24): open the port pair and discard pending input; send Get(*n*); wait up to 1.5 s for one SysEx; accept it only if
-  the strict reader of section 9 passes, the command is `03`, and the slot byte equals *n*. On silence, wait 0.5 s and retry (3 attempts),
-  then report failure: silence is the only error signal.
+	the strict reader of section 9 passes, the command is `03`, and the slot byte equals *n*. On silence, wait 0.5 s and retry (3 attempts),
+	then report failure: silence is the only error signal.
 - **Write slot *n***: validate every field against section 4.2; build the 182-byte Set with the correct length bytes; send it **once**; wait at
-  least 1.5 s (messages sent while the device is busy are dropped); read the slot back and compare all 171 preset bytes; there is no other
-  confirmation. On mismatch, retry the write once after a further delay, then fail.
+	least 1.5 s (messages sent while the device is busy are dropped); read the slot back and compare all 171 preset bytes; there is no other
+	confirmation. On mismatch, retry the write once after a further delay, then fail.
 - **Several slots**: strictly one at a time, at least 1.5 s between Sets; do not pipeline.
 - **Back up first**: read all 25 slots and keep the raw replies before overwriting anything; restoring is a Set of each reply.
 - **Preserve what you do not understand**: to change a preset, start from the bytes just read and modify only the fields you mean to, so
-  reserved bytes are carried through unchanged.
+	reserved bytes are carried through unchanged.
 - **Never write to a slot above 24** (effect untested).
 - **Names**: the device keeps whatever 7-bit bytes you send, but the vendor editor's treatment of non-printable or non-ASCII names was not
-  measured, so write printable ASCII `20..7E` only.
+	measured, so write printable ASCII `20..7E` only.
 
 ### 8.2 Wireless-receiver pairing (non-normative)
 
@@ -928,13 +928,13 @@ An implementation conforms if it passes all of the following, using only this do
 from nothing but those files (no vendor software, no other code) passes every item.
 
 1. **Conversion** (`vectors.json`, `vectors`): for every vector, SysEx-to-`.vw2` yields exactly `vw2_hex`, and `.vw2`-to-SysEx with the
-   vector's slot byte and command yields exactly `sysex_hex`. (22 vectors: 21 random presets and the factory default.)
+	vector's slot byte and command yields exactly `sysex_hex`. (22 vectors: 21 random presets and the factory default.)
 2. **Rejection** (`vectors.json`, `negative`): the strict `.vw2` reader rejects every `vw2` item (wrong size, altered prefix or record
-   header, zeroed constants) and the strict SysEx reader rejects every `sysex` item (wrong size, wrong manufacturer/device/model byte,
-   missing `F7`, wrong command, slot above 24, a data byte with the high bit set). The strict SysEx reader checks: size 182; `F0`, `00 00 0E 52 5E`,
-   `F7` present; command `01` or `03`; length field 172; slot 0..24; all data bytes below `80`. (15 items.)
+	header, zeroed constants) and the strict SysEx reader rejects every `sysex` item (wrong size, wrong manufacturer/device/model byte,
+	missing `F7`, wrong command, slot above 24, a data byte with the high bit set). The strict SysEx reader checks: size 182; `F0`, `00 00 0E 52 5E`,
+	`F7` present; command `01` or `03`; length field 172; slot 0..24; all data bytes below `80`. (15 items.)
 3. **Decoding** (`field_vectors.json`): decoding each message with the encodings of `layout.json` / section 4.2 yields the listed named
-   values for all 148 fields (the name as text, enumerations as their names, numbers with their display offset). (22 messages.)
+	values for all 148 fields (the name as text, enumerations as their names, numbers with their display offset). (22 messages.)
 4. **Defaults** (`device_factory_defaults.json`): every slot body converts to a `.vw2` and back unchanged, and decodes to the table of section 5.2.
 
 ## 10. Evidence and open questions
@@ -957,24 +957,24 @@ Open questions [U] (an implementation must not rely on any of these):
 - the behaviour of the physical controls for each pad type, and which zone applies when the split is Off;
 - the effect of a Set to an index above 24;
 - whether a Set to the slot that is currently active on the keytar takes effect immediately or only when that preset is next selected, and
-  whether the device accepts a Set while it is being played;
+	whether the device accepts a Set while it is being played;
 - whether the device answers a Universal Device Inquiry;
 - port naming and sharing behaviour on hosts other than Windows;
 - how the vendor editor limits name entry (length and characters);
 - behaviour on firmware or editor versions other than those measured (the firmware version was not recorded);
 - whether the pairing message (section 8.2) takes effect on every firmware version, and what the thirteen trailing `0` bytes mean (they were
-  identical in both captures).
+	identical in both captures).
 
 ## Appendix A. Data file formats
 
 - **`layout.json`**: `{ "message_length": 182, "body_length": 172, "vw2_size": 1071, "fields": [ ... ] }`. Each field is one **message byte**,
-  in message-offset order, with: `msg_offset` (0..181); `name`; `role` (`constant` with `value`; `command` with `values`; `length`; `slot`
-  with `range`; `name` (one character of the name); `reserved`; `parameter`); `vw2_offset` (file offset of the same byte, or `null`/absent
-  if it is not stored in the file); and for parameters `encoding`: `{"type":"enum","values":[names in byte order]}` or
-  `{"type":"int","byte_min":..,"byte_max":..,"display_offset":..}` (displayed value = byte + display_offset).
+	in message-offset order, with: `msg_offset` (0..181); `name`; `role` (`constant` with `value`; `command` with `values`; `length`; `slot`
+	with `range`; `name` (one character of the name); `reserved`; `parameter`); `vw2_offset` (file offset of the same byte, or `null`/absent
+	if it is not stored in the file); and for parameters `encoding`: `{"type":"enum","values":[names in byte order]}` or
+	`{"type":"int","byte_min":..,"byte_max":..,"display_offset":..}` (displayed value = byte + display_offset).
 - **`vw2_template.hex`**: 1071 bytes as hexadecimal pairs separated by spaces; all value positions are `00`.
 - **`vectors.json`**: `{ "note", "vectors": [ {"name","sysex_hex","vw2_hex"} ], "negative": { "vw2": [ {"why","hex"} ], "sysex": [ {"why","hex"} ] } }`;
-  hex strings are space-separated bytes; `sysex_hex` includes `F0` and `F7`.
+	hex strings are space-separated bytes; `sysex_hex` includes `F0` and `F7`.
 - **`field_vectors.json`**: `{ "note", "vectors": [ {"name","sysex_hex","fields": {field name: displayed value}} ] }`, including `slot` and `name`.
 - **`device_factory_defaults.json`**: `{ "note", "taken", "slots": { "0".."25": hex } }`; each value is the message **without** `F0` and `F7`
-  (it starts `00 00 0E 52 5E 03 01 2C`); key `25` is the reply to an out-of-range Get.
+	(it starts `00 00 0E 52 5E 03 01 2C`); key `25` is the reply to an out-of-range Get.

@@ -3,3 +3,10 @@ repos:
     rev: v0.6.9
     hooks:
       - id: ruff-format
+  - repo: local
+    hooks:
+      - id: check-tabs
+        name: indentation is tabs (json, toml, markdown)
+        entry: python tools/check_tabs.py
+        language: system
+        types_or: [json, toml, markdown]

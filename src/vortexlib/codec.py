@@ -25,15 +25,27 @@ PAIR_SUFFIX = b"0" * 13 + b"\xf7"
 PAIR_ID_LEN = 6
 
 
+def pair_id(dongle_id: str) -> str:
+	"""The six-digit pairing ID for ``dongle_id``: its rightmost six digits.
+
+	The ID is the last six digits of the number on the dongle's sticker, so a longer number (the whole
+	sticker) is accepted and shortened.  Fewer than six digits, or anything but digits, is an error.
+	"""
+	if not (dongle_id.isascii() and dongle_id.isdigit()) or len(dongle_id) < PAIR_ID_LEN:
+		raise ValueError(
+			f"a dongle ID is {PAIR_ID_LEN} digits: the last {PAIR_ID_LEN} of the number on the "
+			f"dongle's sticker (got {dongle_id!r})"
+		)
+	return dongle_id[-PAIR_ID_LEN:]
+
+
 def build_pair(dongle_id: str) -> bytes:
-	"""Wireless-receiver pairing message for a six-digit dongle ID (spec section 8.2).
+	"""Wireless-receiver pairing message for a dongle ID (spec section 8.2); see ``pair_id``.
 
 	Measured from two editor captures with different IDs: a fixed prefix, the ID as six ASCII
 	digits, then thirteen ASCII ``0`` bytes.  The device sends no reply.
 	"""
-	if len(dongle_id) != PAIR_ID_LEN or not (dongle_id.isascii() and dongle_id.isdigit()):
-		raise ValueError(f"a dongle ID is {PAIR_ID_LEN} digits, got {dongle_id!r}")
-	return PAIR_PREFIX + dongle_id.encode("ascii") + PAIR_SUFFIX
+	return PAIR_PREFIX + pair_id(dongle_id).encode("ascii") + PAIR_SUFFIX
 
 
 def build_get(slot: int) -> bytes:

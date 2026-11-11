@@ -21,6 +21,7 @@ from .document import (
 	diff_presets,
 	dump_json,
 	flatten,
+	is_complete_doc,
 	parse_json,
 	preset_to_doc,
 )
@@ -61,6 +62,7 @@ __all__ = [
 	"factory",
 	"field_rows",
 	"flatten",
+	"is_complete_doc",
 	"json_schema",
 	"load",
 	"parse_json",

@@ -20,12 +20,13 @@ pip install "vortex-cli[midi]"
 echo '{ "name": "Lead", "fader3": { "cc": 74 } }' > lead.json
 
 vortex convert lead.json device --slot 3 --dry-run   # preview: shows exactly which settings change
-vortex convert lead.json device --slot 3             # apply them (backs up the old slot first, verifies after)
+vortex convert lead.json device --slot 3             # apply them (verifies after)
 vortex convert lead.json lead.vw2 --slot 3           # or make a file for the vendor editor
 vortex convert lead.json lead.syx --slot 3           # or a SysEx file
 vortex convert device now.json --slot 3              # read a slot back as JSON
+vortex reset 3                                       # slot 3 back to factory defaults
 vortex backup my-keytar/                             # save all 25 slots
-vortex pair 123456                                   # pair the keytar with a wireless dongle (its six-digit ID)
+vortex pair 123456                                   # pair with a wireless dongle (last six digits of the sticker number)
 vortex pair 123456 pair.syx                          # or save that pairing message as a SysEx file
 ```
 
@@ -39,25 +40,25 @@ vortex pair 123456 pair.syx                          # or save that pairing mess
 ## Design in brief
 
 * **Nothing is ambiguous at run time.** Slots are 1-25; `--slot` overrides the file; no slot anywhere is an error;
-  unknown keys are errors; the base preset is determined by where the output goes.
+	unknown keys are errors; the base preset is determined by where the output goes.
 * **Option order never matters.**
 * **Safe by default with hardware.** The device never acknowledges writes and validates nothing, so the tool validates
-  first, shows a diff, saves a backup, asks, writes once, waits, and reads back to verify.
+	first, shows a diff, asks, writes once, waits, and reads back to verify. It keeps no state and writes no files you did not name.
 * **Two packages.** `vortexlib` is pure (bytes in, bytes out); `vortex_cli` adds files, MIDI ports and the CLI.
 
 ## Status and caveats
 
 * The protocol knowledge comes from [spec/SPEC.md](spec/SPEC.md), measured on **one** keytar with one editor version.
-  The spec's open questions apply: e.g. whether writing the currently active slot takes effect immediately.
+	The spec's open questions apply: e.g. whether writing the currently active slot takes effect immediately.
 * The conversion code is tested byte-for-byte against all the spec's vectors, and the device logic against a
-  simulated keytar (`--port sim`).
+	simulated keytar (`--port sim`).
 * **Tested on hardware:** a keytar on firmware 1.1.5, connected by **USB cable**, on Windows 11. `devices`, `backup`
-  (all 25 slots), `convert` from the keytar, `--dry-run`, a full write with verify, a partial (single-field) update,
-  an unchanged re-write (correctly skipped), a `.vw2` round trip, restoring from a backup `.syx`, and the error paths
-  (missing or out-of-range slot, unknown key, out-of-range value, wrong port) all behaved as documented.
-  `pair` was checked on the wire with a MIDI monitor: it sends the same message as the vendor editor.
+	(all 25 slots), `convert` from the keytar, `--dry-run`, a full write with verify, a partial (single-field) update,
+	an unchanged re-write (correctly skipped), a `.vw2` round trip, restoring from a backup `.syx`, and the error paths
+	(missing or out-of-range slot, unknown key, out-of-range value, wrong port) all behaved as documented.
+	`pair` was checked on the wire with a MIDI monitor: it sends the same message as the vendor editor.
 * Not yet exercised: writing the slot that is currently active on the keytar, writing while it is being played, and
-  other firmware versions or operating systems. Try `--dry-run` and `vortex backup` first.
+	other firmware versions or operating systems. Try `--dry-run` and `vortex backup` first.
 * This is unofficial and unaffiliated with Alesis/inMusic. Use at your own risk.
 
 ## Development

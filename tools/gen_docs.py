@@ -14,7 +14,7 @@ import vortexlib as vl  # noqa: E402
 
 
 def schema_text() -> str:
-	return json.dumps(vl.json_schema(), indent=2) + "\n"
+	return json.dumps(vl.json_schema(), indent="	") + "\n"
 
 
 def fields_text() -> str:

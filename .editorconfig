@@ -5,10 +5,6 @@ charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
-indent_style = space
-indent_size = 2
-
-[*.py]
 indent_style = tab
 indent_size = 4
 
@@ -17,13 +13,9 @@ indent_size = 4
 indent_style = space
 indent_size = 2
 
-# Spaces are significant in Markdown (nested lists, code blocks, line breaks)
+# Trailing spaces are significant in Markdown (hard line breaks)
 [*.md]
-indent_style = space
 trim_trailing_whitespace = false
-
-[*.{json,toml}]
-indent_style = space
 
 # Makefiles require tabs for recipes
 [{Makefile,*.mk}]

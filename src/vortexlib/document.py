@@ -13,7 +13,7 @@ import json
 from typing import Any
 
 from . import fields as F
-from .preset import Preset
+from .preset import Preset, factory
 
 
 class DocError(ValueError):
@@ -261,7 +261,7 @@ def parse_json(text: str | bytes) -> Any:
 
 
 def dump_json(doc: dict) -> str:
-	return json.dumps(doc, indent=2, ensure_ascii=False) + "\n"
+	return json.dumps(doc, indent="	", ensure_ascii=False) + "\n"
 
 
 def flatten(doc: dict, prefix: str = "") -> dict[str, Any]:
@@ -272,6 +272,14 @@ def flatten(doc: dict, prefix: str = "") -> dict[str, Any]:
 		else:
 			out[f"{prefix}{k}"] = v
 	return out
+
+
+def is_complete_doc(doc: dict) -> bool:
+	"""True if ``doc`` states every setting the JSON can express, so the preset it describes does not depend
+	on the base it is applied to (apart from bytes JSON never shows, which come from the factory base)."""
+	resolved, _ = apply_doc(factory(), doc)
+	needed = set(flatten(preset_to_doc(resolved)))
+	return needed <= set(flatten(doc))
 
 
 def diff_presets(old: Preset, new: Preset) -> list[tuple[str, Any, Any]]:

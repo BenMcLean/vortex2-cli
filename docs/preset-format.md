@@ -5,39 +5,28 @@ includes, templates or variables. That is deliberate: this tool needs every ambi
 anything cleverer (generating many presets from shared parts, for example) belongs in a separate tool that writes
 these files.
 
-Machine-readable definition: [`schema/preset.schema.json`](../schema/preset.schema.json) (JSON Schema 2020-12;
-point your editor at it with a `"$schema"` key for completion and error squiggles).
-Every key, its accepted values and factory default: [fields.md](fields.md).
-Examples: [`examples/`](../examples).
+The structure (keys, types, ranges, accepted names) is defined by the machine-readable
+[`schema/preset.schema.json`](../schema/preset.schema.json) (JSON Schema 2020-12; point your editor at it with a
+`"$schema"` key for completion and error squiggles). It is generated from the same table as
+[fields.md](fields.md), which lists every key, its accepted values, factory default and raw byte. This page covers
+what a schema can't say: what a document *means*. Examples: [`examples/`](../examples).
 
-## Partial documents and the base preset
+## Partial documents
 
-Every key is optional. A key you leave out means *leave that setting alone*, and what "alone" means depends on where
-the result is going:
+Every key is optional. A key you leave out is *unspecified*: the document says nothing about that setting, and what
+fills the gap is up to whatever reads it. (`vortex` uses Alesis's factory defaults when the result goes to a file and
+what the keytar currently holds when it goes to the keytar; see [cli.md](cli.md#convert-source-dest).) So
+`{"name": "Lead"}` changes the name and nothing else.
 
-| output | omitted keys keep the value from |
-|---|---|
-| a file (`.json`, `.vw2`, `.syx`) | **Alesis's factory defaults** (spec section 5.2: the state after a factory reset; not the vendor editor's "new preset" state) |
-| the keytar (`device`) | **whatever is currently stored in that slot on the keytar** |
-
-So `{"name": "Lead"}` sent to the keytar renames the preset and touches nothing else, while the same file converted to
-`.vw2` gives a full factory-default preset named "Lead".
-
-Setting a key to the value the base already has is not a change; if nothing differs the tool reports
-"nothing to write" and does not touch the keytar.
-
-`.vw2` and `.syx` inputs are always complete presets, so they replace the whole slot.
+A document that states every setting (every key in [fields.md](fields.md)) is *complete*: it doesn't depend on
+anything outside itself. `.vw2` and `.syx` files are always complete. Bytes JSON never shows (reserved bytes, a Panic
+pad's unused values) are zero in a complete document, as in the factory preset.
 
 ## Slots
 
 `slot` is optional and counts **1 to 25**, like the vendor editor's "Preset 1".."Preset 25". (The spec's wire index is
-0-based; this tool converts at the boundary and never shows you the 0-based number.)
-
-* `--slot N` on the command line **overrides** the file's `slot`.
-* No `slot` in the file *and* no `--slot` is an error whenever a slot is needed (writing to the keytar, or writing a `.syx`).
-  `.vw2` files have no slot, and JSON output only records one if known.
-* Factory defaults make the Program Change number equal to the slot index (spec 5.2), so when a slot is known the
-  factory base uses `slot - 1`; with no slot the program number defaults to 0.
+0-based; this format converts at the boundary and never shows you the 0-based number.) `.vw2` files have no slot.
+How `vortex` combines this with `--slot` is in [cli.md](cli.md#slot-rules).
 
 ## Structure
 
@@ -131,9 +120,9 @@ All pads also take `channel` and `color1`..`color4`. For Note pads the colours a
 Rules that remove ambiguity:
 
 * A type-specific key must match the pad's **effective** type: the `type` in the file if given, otherwise the pad's
-  type in the base preset. `{"pad1": {"cc": 5}}` on a pad that is currently a Note pad is an error that says so.
+	type in the base preset. `{"pad1": {"cc": 5}}` on a pad that is currently a Note pad is an error that says so.
 * **Changing a pad's type resets its three value bytes to 0** unless the same file also sets them. Otherwise a Note
-  pad's note 36 would silently become CC 36. Restating the type the pad already has resets nothing.
+	pad's note 36 would silently become CC 36. Restating the type the pad already has resets nothing.
 * A `Panic` pad's three value bytes are unused. They are never shown, but they are preserved from the base preset.
 
 ### Reserved bytes
@@ -145,18 +134,10 @@ in factory defaults. Leave them out unless you know why you need them; exports o
 ### Invalid bytes: `{"raw": n}`
 
 The keytar validates nothing, so it can hold values the format cannot name (for example channel byte 127). Reading
-such a preset emits `{"raw": 127}` for that key instead of failing. Such a preset can be saved to files with
-`--allow-invalid` but is **never written to the keytar**.
+such a preset emits `{"raw": 127}` for that key instead of failing. Such a value is only for files: `vortex` will
+not write it to the keytar (see `--allow-invalid` in [cli.md](cli.md#convert-source-dest)).
 
 ## Validation
 
-All of a file's problems are reported at once, each with its JSON path:
-
-```
-vortex: volume.max: expected an integer 0..127
-vortex: nmae: unknown key (did you mean 'name'?)
-vortex: pad1.cc: only valid for CC Toggle / CC Momentary pads, not Note (valid keys here: note, velocity, curve, type, channel, ...)
-```
-
-Check files without converting using `vortex validate FILE...`.
-The JSON Schema checks canonical spellings; the tool is a little more lenient (names ignore case, as above).
+The JSON Schema checks canonical spellings; `vortex` is a little more lenient (names ignore case, as above) and
+reports every problem at once, each with its JSON path. See `vortex validate` in [cli.md](cli.md#validate-file).

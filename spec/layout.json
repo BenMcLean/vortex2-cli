@@ -1,2849 +1,2849 @@
 {
- "message_length": 182,
- "body_length": 172,
- "vw2_size": 1071,
- "fields": [
-  {
-   "msg_offset": 0,
-   "name": "sysex_start",
-   "role": "constant",
-   "value": 240
-  },
-  {
-   "msg_offset": 1,
-   "name": "manufacturer_id_1",
-   "role": "constant",
-   "value": 0
-  },
-  {
-   "msg_offset": 2,
-   "name": "manufacturer_id_2",
-   "role": "constant",
-   "value": 0
-  },
-  {
-   "msg_offset": 3,
-   "name": "manufacturer_id_3",
-   "role": "constant",
-   "value": 14
-  },
-  {
-   "msg_offset": 4,
-   "name": "device_family",
-   "role": "constant",
-   "value": 82
-  },
-  {
-   "msg_offset": 5,
-   "name": "device_model",
-   "role": "constant",
-   "value": 94
-  },
-  {
-   "msg_offset": 6,
-   "name": "command",
-   "role": "command",
-   "values": {
-    "get": 2,
-    "set": 1,
-    "reply": 3
-   }
-  },
-  {
-   "msg_offset": 7,
-   "name": "length_hi",
-   "role": "length",
-   "note": "14-bit big-endian pair (hi<<7|lo) = number of bytes between length_lo and F7 (172 for a preset message)"
-  },
-  {
-   "msg_offset": 8,
-   "name": "length_lo",
-   "role": "length"
-  },
-  {
-   "msg_offset": 9,
-   "name": "slot",
-   "role": "slot",
-   "range": [
-    0,
-    24
-   ],
-   "vw2_offset": null
-  },
-  {
-   "msg_offset": 10,
-   "vw2_offset": 36,
-   "name": "name[0]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 11,
-   "vw2_offset": 37,
-   "name": "name[1]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 12,
-   "vw2_offset": 38,
-   "name": "name[2]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 13,
-   "vw2_offset": 39,
-   "name": "name[3]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 14,
-   "vw2_offset": 40,
-   "name": "name[4]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 15,
-   "vw2_offset": 41,
-   "name": "name[5]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 16,
-   "vw2_offset": 42,
-   "name": "name[6]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 17,
-   "vw2_offset": 43,
-   "name": "name[7]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 18,
-   "vw2_offset": 44,
-   "name": "name[8]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 19,
-   "vw2_offset": 45,
-   "name": "name[9]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 20,
-   "vw2_offset": 46,
-   "name": "name[10]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 21,
-   "vw2_offset": 47,
-   "name": "name[11]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 22,
-   "vw2_offset": 48,
-   "name": "name[12]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 23,
-   "vw2_offset": 49,
-   "name": "name[13]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 24,
-   "vw2_offset": 50,
-   "name": "name[14]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 25,
-   "vw2_offset": 51,
-   "name": "name[15]",
-   "role": "name",
-   "note": "ASCII, NUL padded (16 bytes)"
-  },
-  {
-   "msg_offset": 26,
-   "vw2_offset": 76,
-   "name": "pc.send_on_load",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Yes",
-     "No"
-    ]
-   }
-  },
-  {
-   "msg_offset": 27,
-   "vw2_offset": 77,
-   "name": "pc.msb",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 28,
-   "vw2_offset": 78,
-   "name": "pc.lsb",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 29,
-   "vw2_offset": 79,
-   "name": "pc.program",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 30,
-   "vw2_offset": 104,
-   "name": "split.curve",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Curve 1",
-     "Curve 2",
-     "Curve 3",
-     "Curve 4",
-     "Curve 5",
-     "Curve 6",
-     "Curve 7",
-     "Curve 8"
-    ]
-   }
-  },
-  {
-   "msg_offset": 31,
-   "vw2_offset": 105,
-   "name": "split.mode",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Split On",
-     "Split Off"
-    ]
-   }
-  },
-  {
-   "msg_offset": 32,
-   "vw2_offset": 106,
-   "name": "split.key",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 35,
-    "display_offset": 1
-   }
-  },
-  {
-   "msg_offset": 33,
-   "vw2_offset": 131,
-   "name": "upper.transpose",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 24,
-    "display_offset": -12
-   }
-  },
-  {
-   "msg_offset": 34,
-   "vw2_offset": 132,
-   "name": "upper.midi_to_din",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "On",
-     "Off"
-    ]
-   }
-  },
-  {
-   "msg_offset": 35,
-   "vw2_offset": 133,
-   "name": "upper.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 36,
-   "vw2_offset": 158,
-   "name": "lower.transpose",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 24,
-    "display_offset": -12
-   }
-  },
-  {
-   "msg_offset": 37,
-   "vw2_offset": 159,
-   "name": "lower.midi_to_din",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "On",
-     "Off"
-    ]
-   }
-  },
-  {
-   "msg_offset": 38,
-   "vw2_offset": 160,
-   "name": "lower.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 39,
-   "vw2_offset": 185,
-   "name": "sustain.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 40,
-   "vw2_offset": 210,
-   "name": "wheel.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 41,
-   "vw2_offset": 211,
-   "name": "wheel.direction",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Normal",
-     "Reverse"
-    ]
-   }
-  },
-  {
-   "msg_offset": 42,
-   "vw2_offset": 236,
-   "name": "reserved_after_wheel",
-   "role": "reserved",
-   "note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
-  },
-  {
-   "msg_offset": 43,
-   "vw2_offset": 237,
-   "name": "volume.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 44,
-   "vw2_offset": 238,
-   "name": "volume.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 45,
-   "vw2_offset": 239,
-   "name": "volume.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 46,
-   "vw2_offset": 240,
-   "name": "volume.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 47,
-   "vw2_offset": 265,
-   "name": "ribbon.default_bank",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Bank 1",
-     "Bank 2",
-     "Bank 3"
-    ]
-   }
-  },
-  {
-   "msg_offset": 48,
-   "vw2_offset": 266,
-   "name": "ribbon.release_mode",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Return",
-     "Latch"
-    ]
-   }
-  },
-  {
-   "msg_offset": 49,
-   "vw2_offset": 291,
-   "name": "ribbon.bank1.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "CC",
-     "Pitch Bend"
-    ]
-   }
-  },
-  {
-   "msg_offset": 50,
-   "vw2_offset": 292,
-   "name": "ribbon.bank1.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 51,
-   "vw2_offset": 293,
-   "name": "ribbon.bank1.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 52,
-   "vw2_offset": 294,
-   "name": "ribbon.bank1.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 53,
-   "vw2_offset": 295,
-   "name": "ribbon.bank1.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 54,
-   "vw2_offset": 320,
-   "name": "ribbon.bank2.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "CC",
-     "Pitch Bend"
-    ]
-   }
-  },
-  {
-   "msg_offset": 55,
-   "vw2_offset": 321,
-   "name": "ribbon.bank2.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 56,
-   "vw2_offset": 322,
-   "name": "ribbon.bank2.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 57,
-   "vw2_offset": 323,
-   "name": "ribbon.bank2.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 58,
-   "vw2_offset": 324,
-   "name": "ribbon.bank2.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 59,
-   "vw2_offset": 349,
-   "name": "ribbon.bank3.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "CC",
-     "Pitch Bend"
-    ]
-   }
-  },
-  {
-   "msg_offset": 60,
-   "vw2_offset": 350,
-   "name": "ribbon.bank3.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 61,
-   "vw2_offset": 351,
-   "name": "ribbon.bank3.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 62,
-   "vw2_offset": 352,
-   "name": "ribbon.bank3.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 63,
-   "vw2_offset": 353,
-   "name": "ribbon.bank3.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 64,
-   "vw2_offset": 378,
-   "name": "tilt.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "CC",
-     "Pitch Bend"
-    ]
-   }
-  },
-  {
-   "msg_offset": 65,
-   "vw2_offset": 379,
-   "name": "tilt.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 66,
-   "vw2_offset": 380,
-   "name": "tilt.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 67,
-   "vw2_offset": 381,
-   "name": "tilt.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 68,
-   "vw2_offset": 382,
-   "name": "tilt.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 69,
-   "vw2_offset": 407,
-   "name": "reserved_after_tilt",
-   "role": "reserved",
-   "note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
-  },
-  {
-   "msg_offset": 70,
-   "vw2_offset": 408,
-   "name": "fader1.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 71,
-   "vw2_offset": 409,
-   "name": "fader1.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 72,
-   "vw2_offset": 410,
-   "name": "fader1.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 73,
-   "vw2_offset": 411,
-   "name": "fader1.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 74,
-   "vw2_offset": 436,
-   "name": "reserved_after_fader1",
-   "role": "reserved",
-   "note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
-  },
-  {
-   "msg_offset": 75,
-   "vw2_offset": 437,
-   "name": "fader2.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 76,
-   "vw2_offset": 438,
-   "name": "fader2.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 77,
-   "vw2_offset": 439,
-   "name": "fader2.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 78,
-   "vw2_offset": 440,
-   "name": "fader2.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 79,
-   "vw2_offset": 465,
-   "name": "reserved_after_fader2",
-   "role": "reserved",
-   "note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
-  },
-  {
-   "msg_offset": 80,
-   "vw2_offset": 466,
-   "name": "fader3.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 81,
-   "vw2_offset": 467,
-   "name": "fader3.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 82,
-   "vw2_offset": 468,
-   "name": "fader3.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 83,
-   "vw2_offset": 469,
-   "name": "fader3.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 84,
-   "vw2_offset": 494,
-   "name": "reserved_after_fader3",
-   "role": "reserved",
-   "note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
-  },
-  {
-   "msg_offset": 85,
-   "vw2_offset": 495,
-   "name": "fader4.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 86,
-   "vw2_offset": 496,
-   "name": "fader4.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 87,
-   "vw2_offset": 497,
-   "name": "fader4.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 88,
-   "vw2_offset": 498,
-   "name": "fader4.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 89,
-   "vw2_offset": 523,
-   "name": "reserved_after_fader4",
-   "role": "reserved",
-   "note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
-  },
-  {
-   "msg_offset": 90,
-   "vw2_offset": 524,
-   "name": "fader5.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 91,
-   "vw2_offset": 525,
-   "name": "fader5.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 92,
-   "vw2_offset": 526,
-   "name": "fader5.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 93,
-   "vw2_offset": 527,
-   "name": "fader5.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 94,
-   "vw2_offset": 552,
-   "name": "reserved_after_fader5",
-   "role": "reserved",
-   "note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
-  },
-  {
-   "msg_offset": 95,
-   "vw2_offset": 553,
-   "name": "fader6.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 96,
-   "vw2_offset": 554,
-   "name": "fader6.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 97,
-   "vw2_offset": 555,
-   "name": "fader6.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 98,
-   "vw2_offset": 556,
-   "name": "fader6.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 99,
-   "vw2_offset": 581,
-   "name": "reserved_after_fader6",
-   "role": "reserved",
-   "note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
-  },
-  {
-   "msg_offset": 100,
-   "vw2_offset": 582,
-   "name": "fader7.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 101,
-   "vw2_offset": 583,
-   "name": "fader7.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 102,
-   "vw2_offset": 584,
-   "name": "fader7.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 103,
-   "vw2_offset": 585,
-   "name": "fader7.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 104,
-   "vw2_offset": 610,
-   "name": "reserved_after_fader7",
-   "role": "reserved",
-   "note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
-  },
-  {
-   "msg_offset": 105,
-   "vw2_offset": 611,
-   "name": "fader8.cc",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 106,
-   "vw2_offset": 612,
-   "name": "fader8.min",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 107,
-   "vw2_offset": 613,
-   "name": "fader8.max",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 108,
-   "vw2_offset": 614,
-   "name": "fader8.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 109,
-   "vw2_offset": 639,
-   "name": "pad1.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Note",
-     "CC Toggle",
-     "CC Momentary",
-     "Program Change",
-     "Panic"
-    ]
-   }
-  },
-  {
-   "msg_offset": 110,
-   "vw2_offset": 640,
-   "name": "pad1.value1",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 111,
-   "vw2_offset": 641,
-   "name": "pad1.value2",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 112,
-   "vw2_offset": 642,
-   "name": "pad1.value3",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 113,
-   "vw2_offset": 643,
-   "name": "pad1.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 114,
-   "vw2_offset": 668,
-   "name": "pad1.color1",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 115,
-   "vw2_offset": 669,
-   "name": "pad1.color2",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 116,
-   "vw2_offset": 670,
-   "name": "pad1.color3",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 117,
-   "vw2_offset": 671,
-   "name": "pad1.color4",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 118,
-   "vw2_offset": 696,
-   "name": "pad2.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Note",
-     "CC Toggle",
-     "CC Momentary",
-     "Program Change",
-     "Panic"
-    ]
-   }
-  },
-  {
-   "msg_offset": 119,
-   "vw2_offset": 697,
-   "name": "pad2.value1",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 120,
-   "vw2_offset": 698,
-   "name": "pad2.value2",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 121,
-   "vw2_offset": 699,
-   "name": "pad2.value3",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 122,
-   "vw2_offset": 700,
-   "name": "pad2.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 123,
-   "vw2_offset": 725,
-   "name": "pad2.color1",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 124,
-   "vw2_offset": 726,
-   "name": "pad2.color2",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 125,
-   "vw2_offset": 727,
-   "name": "pad2.color3",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 126,
-   "vw2_offset": 728,
-   "name": "pad2.color4",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 127,
-   "vw2_offset": 753,
-   "name": "pad3.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Note",
-     "CC Toggle",
-     "CC Momentary",
-     "Program Change",
-     "Panic"
-    ]
-   }
-  },
-  {
-   "msg_offset": 128,
-   "vw2_offset": 754,
-   "name": "pad3.value1",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 129,
-   "vw2_offset": 755,
-   "name": "pad3.value2",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 130,
-   "vw2_offset": 756,
-   "name": "pad3.value3",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 131,
-   "vw2_offset": 757,
-   "name": "pad3.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 132,
-   "vw2_offset": 782,
-   "name": "pad3.color1",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 133,
-   "vw2_offset": 783,
-   "name": "pad3.color2",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 134,
-   "vw2_offset": 784,
-   "name": "pad3.color3",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 135,
-   "vw2_offset": 785,
-   "name": "pad3.color4",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 136,
-   "vw2_offset": 810,
-   "name": "pad4.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Note",
-     "CC Toggle",
-     "CC Momentary",
-     "Program Change",
-     "Panic"
-    ]
-   }
-  },
-  {
-   "msg_offset": 137,
-   "vw2_offset": 811,
-   "name": "pad4.value1",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 138,
-   "vw2_offset": 812,
-   "name": "pad4.value2",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 139,
-   "vw2_offset": 813,
-   "name": "pad4.value3",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 140,
-   "vw2_offset": 814,
-   "name": "pad4.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 141,
-   "vw2_offset": 839,
-   "name": "pad4.color1",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 142,
-   "vw2_offset": 840,
-   "name": "pad4.color2",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 143,
-   "vw2_offset": 841,
-   "name": "pad4.color3",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 144,
-   "vw2_offset": 842,
-   "name": "pad4.color4",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 145,
-   "vw2_offset": 867,
-   "name": "pad5.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Note",
-     "CC Toggle",
-     "CC Momentary",
-     "Program Change",
-     "Panic"
-    ]
-   }
-  },
-  {
-   "msg_offset": 146,
-   "vw2_offset": 868,
-   "name": "pad5.value1",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 147,
-   "vw2_offset": 869,
-   "name": "pad5.value2",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 148,
-   "vw2_offset": 870,
-   "name": "pad5.value3",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 149,
-   "vw2_offset": 871,
-   "name": "pad5.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 150,
-   "vw2_offset": 896,
-   "name": "pad5.color1",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 151,
-   "vw2_offset": 897,
-   "name": "pad5.color2",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 152,
-   "vw2_offset": 898,
-   "name": "pad5.color3",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 153,
-   "vw2_offset": 899,
-   "name": "pad5.color4",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 154,
-   "vw2_offset": 924,
-   "name": "pad6.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Note",
-     "CC Toggle",
-     "CC Momentary",
-     "Program Change",
-     "Panic"
-    ]
-   }
-  },
-  {
-   "msg_offset": 155,
-   "vw2_offset": 925,
-   "name": "pad6.value1",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 156,
-   "vw2_offset": 926,
-   "name": "pad6.value2",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 157,
-   "vw2_offset": 927,
-   "name": "pad6.value3",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 158,
-   "vw2_offset": 928,
-   "name": "pad6.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 159,
-   "vw2_offset": 953,
-   "name": "pad6.color1",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 160,
-   "vw2_offset": 954,
-   "name": "pad6.color2",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 161,
-   "vw2_offset": 955,
-   "name": "pad6.color3",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 162,
-   "vw2_offset": 956,
-   "name": "pad6.color4",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 163,
-   "vw2_offset": 981,
-   "name": "pad7.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Note",
-     "CC Toggle",
-     "CC Momentary",
-     "Program Change",
-     "Panic"
-    ]
-   }
-  },
-  {
-   "msg_offset": 164,
-   "vw2_offset": 982,
-   "name": "pad7.value1",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 165,
-   "vw2_offset": 983,
-   "name": "pad7.value2",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 166,
-   "vw2_offset": 984,
-   "name": "pad7.value3",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 167,
-   "vw2_offset": 985,
-   "name": "pad7.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 168,
-   "vw2_offset": 1010,
-   "name": "pad7.color1",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 169,
-   "vw2_offset": 1011,
-   "name": "pad7.color2",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 170,
-   "vw2_offset": 1012,
-   "name": "pad7.color3",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 171,
-   "vw2_offset": 1013,
-   "name": "pad7.color4",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 172,
-   "vw2_offset": 1038,
-   "name": "pad8.type",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Note",
-     "CC Toggle",
-     "CC Momentary",
-     "Program Change",
-     "Panic"
-    ]
-   }
-  },
-  {
-   "msg_offset": 173,
-   "vw2_offset": 1039,
-   "name": "pad8.value1",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 174,
-   "vw2_offset": 1040,
-   "name": "pad8.value2",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 175,
-   "vw2_offset": 1041,
-   "name": "pad8.value3",
-   "role": "parameter",
-   "encoding": {
-    "type": "int",
-    "byte_min": 0,
-    "byte_max": 127,
-    "display_offset": 0
-   }
-  },
-  {
-   "msg_offset": 176,
-   "vw2_offset": 1042,
-   "name": "pad8.channel",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "Channel 1",
-     "Channel 2",
-     "Channel 3",
-     "Channel 4",
-     "Channel 5",
-     "Channel 6",
-     "Channel 7",
-     "Channel 8",
-     "Channel 9",
-     "Channel 10",
-     "Channel 11",
-     "Channel 12",
-     "Channel 13",
-     "Channel 14",
-     "Channel 15",
-     "Channel 16"
-    ]
-   }
-  },
-  {
-   "msg_offset": 177,
-   "vw2_offset": 1067,
-   "name": "pad8.color1",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 178,
-   "vw2_offset": 1068,
-   "name": "pad8.color2",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 179,
-   "vw2_offset": 1069,
-   "name": "pad8.color3",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 180,
-   "vw2_offset": 1070,
-   "name": "pad8.color4",
-   "role": "parameter",
-   "encoding": {
-    "type": "enum",
-    "values": [
-     "LED Off",
-     "Chartreuse",
-     "Green",
-     "Aquamarine",
-     "Cyan",
-     "Azure",
-     "Blue",
-     "Violet",
-     "Magenta",
-     "Rose",
-     "Red",
-     "Orange",
-     "Yellow",
-     "White"
-    ]
-   }
-  },
-  {
-   "msg_offset": 181,
-   "name": "sysex_end",
-   "role": "constant",
-   "value": 247
-  }
- ]
+	"message_length": 182,
+	"body_length": 172,
+	"vw2_size": 1071,
+	"fields": [
+		{
+			"msg_offset": 0,
+			"name": "sysex_start",
+			"role": "constant",
+			"value": 240
+		},
+		{
+			"msg_offset": 1,
+			"name": "manufacturer_id_1",
+			"role": "constant",
+			"value": 0
+		},
+		{
+			"msg_offset": 2,
+			"name": "manufacturer_id_2",
+			"role": "constant",
+			"value": 0
+		},
+		{
+			"msg_offset": 3,
+			"name": "manufacturer_id_3",
+			"role": "constant",
+			"value": 14
+		},
+		{
+			"msg_offset": 4,
+			"name": "device_family",
+			"role": "constant",
+			"value": 82
+		},
+		{
+			"msg_offset": 5,
+			"name": "device_model",
+			"role": "constant",
+			"value": 94
+		},
+		{
+			"msg_offset": 6,
+			"name": "command",
+			"role": "command",
+			"values": {
+				"get": 2,
+				"set": 1,
+				"reply": 3
+			}
+		},
+		{
+			"msg_offset": 7,
+			"name": "length_hi",
+			"role": "length",
+			"note": "14-bit big-endian pair (hi<<7|lo) = number of bytes between length_lo and F7 (172 for a preset message)"
+		},
+		{
+			"msg_offset": 8,
+			"name": "length_lo",
+			"role": "length"
+		},
+		{
+			"msg_offset": 9,
+			"name": "slot",
+			"role": "slot",
+			"range": [
+				0,
+				24
+			],
+			"vw2_offset": null
+		},
+		{
+			"msg_offset": 10,
+			"vw2_offset": 36,
+			"name": "name[0]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 11,
+			"vw2_offset": 37,
+			"name": "name[1]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 12,
+			"vw2_offset": 38,
+			"name": "name[2]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 13,
+			"vw2_offset": 39,
+			"name": "name[3]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 14,
+			"vw2_offset": 40,
+			"name": "name[4]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 15,
+			"vw2_offset": 41,
+			"name": "name[5]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 16,
+			"vw2_offset": 42,
+			"name": "name[6]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 17,
+			"vw2_offset": 43,
+			"name": "name[7]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 18,
+			"vw2_offset": 44,
+			"name": "name[8]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 19,
+			"vw2_offset": 45,
+			"name": "name[9]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 20,
+			"vw2_offset": 46,
+			"name": "name[10]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 21,
+			"vw2_offset": 47,
+			"name": "name[11]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 22,
+			"vw2_offset": 48,
+			"name": "name[12]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 23,
+			"vw2_offset": 49,
+			"name": "name[13]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 24,
+			"vw2_offset": 50,
+			"name": "name[14]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 25,
+			"vw2_offset": 51,
+			"name": "name[15]",
+			"role": "name",
+			"note": "ASCII, NUL padded (16 bytes)"
+		},
+		{
+			"msg_offset": 26,
+			"vw2_offset": 76,
+			"name": "pc.send_on_load",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Yes",
+					"No"
+				]
+			}
+		},
+		{
+			"msg_offset": 27,
+			"vw2_offset": 77,
+			"name": "pc.msb",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 28,
+			"vw2_offset": 78,
+			"name": "pc.lsb",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 29,
+			"vw2_offset": 79,
+			"name": "pc.program",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 30,
+			"vw2_offset": 104,
+			"name": "split.curve",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Curve 1",
+					"Curve 2",
+					"Curve 3",
+					"Curve 4",
+					"Curve 5",
+					"Curve 6",
+					"Curve 7",
+					"Curve 8"
+				]
+			}
+		},
+		{
+			"msg_offset": 31,
+			"vw2_offset": 105,
+			"name": "split.mode",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Split On",
+					"Split Off"
+				]
+			}
+		},
+		{
+			"msg_offset": 32,
+			"vw2_offset": 106,
+			"name": "split.key",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 35,
+				"display_offset": 1
+			}
+		},
+		{
+			"msg_offset": 33,
+			"vw2_offset": 131,
+			"name": "upper.transpose",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 24,
+				"display_offset": -12
+			}
+		},
+		{
+			"msg_offset": 34,
+			"vw2_offset": 132,
+			"name": "upper.midi_to_din",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"On",
+					"Off"
+				]
+			}
+		},
+		{
+			"msg_offset": 35,
+			"vw2_offset": 133,
+			"name": "upper.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 36,
+			"vw2_offset": 158,
+			"name": "lower.transpose",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 24,
+				"display_offset": -12
+			}
+		},
+		{
+			"msg_offset": 37,
+			"vw2_offset": 159,
+			"name": "lower.midi_to_din",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"On",
+					"Off"
+				]
+			}
+		},
+		{
+			"msg_offset": 38,
+			"vw2_offset": 160,
+			"name": "lower.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 39,
+			"vw2_offset": 185,
+			"name": "sustain.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 40,
+			"vw2_offset": 210,
+			"name": "wheel.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 41,
+			"vw2_offset": 211,
+			"name": "wheel.direction",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Normal",
+					"Reverse"
+				]
+			}
+		},
+		{
+			"msg_offset": 42,
+			"vw2_offset": 236,
+			"name": "reserved_after_wheel",
+			"role": "reserved",
+			"note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
+		},
+		{
+			"msg_offset": 43,
+			"vw2_offset": 237,
+			"name": "volume.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 44,
+			"vw2_offset": 238,
+			"name": "volume.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 45,
+			"vw2_offset": 239,
+			"name": "volume.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 46,
+			"vw2_offset": 240,
+			"name": "volume.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 47,
+			"vw2_offset": 265,
+			"name": "ribbon.default_bank",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Bank 1",
+					"Bank 2",
+					"Bank 3"
+				]
+			}
+		},
+		{
+			"msg_offset": 48,
+			"vw2_offset": 266,
+			"name": "ribbon.release_mode",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Return",
+					"Latch"
+				]
+			}
+		},
+		{
+			"msg_offset": 49,
+			"vw2_offset": 291,
+			"name": "ribbon.bank1.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"CC",
+					"Pitch Bend"
+				]
+			}
+		},
+		{
+			"msg_offset": 50,
+			"vw2_offset": 292,
+			"name": "ribbon.bank1.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 51,
+			"vw2_offset": 293,
+			"name": "ribbon.bank1.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 52,
+			"vw2_offset": 294,
+			"name": "ribbon.bank1.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 53,
+			"vw2_offset": 295,
+			"name": "ribbon.bank1.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 54,
+			"vw2_offset": 320,
+			"name": "ribbon.bank2.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"CC",
+					"Pitch Bend"
+				]
+			}
+		},
+		{
+			"msg_offset": 55,
+			"vw2_offset": 321,
+			"name": "ribbon.bank2.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 56,
+			"vw2_offset": 322,
+			"name": "ribbon.bank2.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 57,
+			"vw2_offset": 323,
+			"name": "ribbon.bank2.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 58,
+			"vw2_offset": 324,
+			"name": "ribbon.bank2.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 59,
+			"vw2_offset": 349,
+			"name": "ribbon.bank3.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"CC",
+					"Pitch Bend"
+				]
+			}
+		},
+		{
+			"msg_offset": 60,
+			"vw2_offset": 350,
+			"name": "ribbon.bank3.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 61,
+			"vw2_offset": 351,
+			"name": "ribbon.bank3.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 62,
+			"vw2_offset": 352,
+			"name": "ribbon.bank3.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 63,
+			"vw2_offset": 353,
+			"name": "ribbon.bank3.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 64,
+			"vw2_offset": 378,
+			"name": "tilt.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"CC",
+					"Pitch Bend"
+				]
+			}
+		},
+		{
+			"msg_offset": 65,
+			"vw2_offset": 379,
+			"name": "tilt.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 66,
+			"vw2_offset": 380,
+			"name": "tilt.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 67,
+			"vw2_offset": 381,
+			"name": "tilt.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 68,
+			"vw2_offset": 382,
+			"name": "tilt.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 69,
+			"vw2_offset": 407,
+			"name": "reserved_after_tilt",
+			"role": "reserved",
+			"note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
+		},
+		{
+			"msg_offset": 70,
+			"vw2_offset": 408,
+			"name": "fader1.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 71,
+			"vw2_offset": 409,
+			"name": "fader1.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 72,
+			"vw2_offset": 410,
+			"name": "fader1.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 73,
+			"vw2_offset": 411,
+			"name": "fader1.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 74,
+			"vw2_offset": 436,
+			"name": "reserved_after_fader1",
+			"role": "reserved",
+			"note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
+		},
+		{
+			"msg_offset": 75,
+			"vw2_offset": 437,
+			"name": "fader2.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 76,
+			"vw2_offset": 438,
+			"name": "fader2.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 77,
+			"vw2_offset": 439,
+			"name": "fader2.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 78,
+			"vw2_offset": 440,
+			"name": "fader2.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 79,
+			"vw2_offset": 465,
+			"name": "reserved_after_fader2",
+			"role": "reserved",
+			"note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
+		},
+		{
+			"msg_offset": 80,
+			"vw2_offset": 466,
+			"name": "fader3.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 81,
+			"vw2_offset": 467,
+			"name": "fader3.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 82,
+			"vw2_offset": 468,
+			"name": "fader3.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 83,
+			"vw2_offset": 469,
+			"name": "fader3.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 84,
+			"vw2_offset": 494,
+			"name": "reserved_after_fader3",
+			"role": "reserved",
+			"note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
+		},
+		{
+			"msg_offset": 85,
+			"vw2_offset": 495,
+			"name": "fader4.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 86,
+			"vw2_offset": 496,
+			"name": "fader4.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 87,
+			"vw2_offset": 497,
+			"name": "fader4.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 88,
+			"vw2_offset": 498,
+			"name": "fader4.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 89,
+			"vw2_offset": 523,
+			"name": "reserved_after_fader4",
+			"role": "reserved",
+			"note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
+		},
+		{
+			"msg_offset": 90,
+			"vw2_offset": 524,
+			"name": "fader5.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 91,
+			"vw2_offset": 525,
+			"name": "fader5.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 92,
+			"vw2_offset": 526,
+			"name": "fader5.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 93,
+			"vw2_offset": 527,
+			"name": "fader5.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 94,
+			"vw2_offset": 552,
+			"name": "reserved_after_fader5",
+			"role": "reserved",
+			"note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
+		},
+		{
+			"msg_offset": 95,
+			"vw2_offset": 553,
+			"name": "fader6.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 96,
+			"vw2_offset": 554,
+			"name": "fader6.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 97,
+			"vw2_offset": 555,
+			"name": "fader6.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 98,
+			"vw2_offset": 556,
+			"name": "fader6.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 99,
+			"vw2_offset": 581,
+			"name": "reserved_after_fader6",
+			"role": "reserved",
+			"note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
+		},
+		{
+			"msg_offset": 100,
+			"vw2_offset": 582,
+			"name": "fader7.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 101,
+			"vw2_offset": 583,
+			"name": "fader7.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 102,
+			"vw2_offset": 584,
+			"name": "fader7.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 103,
+			"vw2_offset": 585,
+			"name": "fader7.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 104,
+			"vw2_offset": 610,
+			"name": "reserved_after_fader7",
+			"role": "reserved",
+			"note": "unused by the editor UI; stored and returned unchanged by the device and editor; write 0"
+		},
+		{
+			"msg_offset": 105,
+			"vw2_offset": 611,
+			"name": "fader8.cc",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 106,
+			"vw2_offset": 612,
+			"name": "fader8.min",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 107,
+			"vw2_offset": 613,
+			"name": "fader8.max",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 108,
+			"vw2_offset": 614,
+			"name": "fader8.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 109,
+			"vw2_offset": 639,
+			"name": "pad1.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Note",
+					"CC Toggle",
+					"CC Momentary",
+					"Program Change",
+					"Panic"
+				]
+			}
+		},
+		{
+			"msg_offset": 110,
+			"vw2_offset": 640,
+			"name": "pad1.value1",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 111,
+			"vw2_offset": 641,
+			"name": "pad1.value2",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 112,
+			"vw2_offset": 642,
+			"name": "pad1.value3",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 113,
+			"vw2_offset": 643,
+			"name": "pad1.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 114,
+			"vw2_offset": 668,
+			"name": "pad1.color1",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 115,
+			"vw2_offset": 669,
+			"name": "pad1.color2",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 116,
+			"vw2_offset": 670,
+			"name": "pad1.color3",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 117,
+			"vw2_offset": 671,
+			"name": "pad1.color4",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 118,
+			"vw2_offset": 696,
+			"name": "pad2.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Note",
+					"CC Toggle",
+					"CC Momentary",
+					"Program Change",
+					"Panic"
+				]
+			}
+		},
+		{
+			"msg_offset": 119,
+			"vw2_offset": 697,
+			"name": "pad2.value1",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 120,
+			"vw2_offset": 698,
+			"name": "pad2.value2",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 121,
+			"vw2_offset": 699,
+			"name": "pad2.value3",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 122,
+			"vw2_offset": 700,
+			"name": "pad2.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 123,
+			"vw2_offset": 725,
+			"name": "pad2.color1",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 124,
+			"vw2_offset": 726,
+			"name": "pad2.color2",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 125,
+			"vw2_offset": 727,
+			"name": "pad2.color3",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 126,
+			"vw2_offset": 728,
+			"name": "pad2.color4",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 127,
+			"vw2_offset": 753,
+			"name": "pad3.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Note",
+					"CC Toggle",
+					"CC Momentary",
+					"Program Change",
+					"Panic"
+				]
+			}
+		},
+		{
+			"msg_offset": 128,
+			"vw2_offset": 754,
+			"name": "pad3.value1",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 129,
+			"vw2_offset": 755,
+			"name": "pad3.value2",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 130,
+			"vw2_offset": 756,
+			"name": "pad3.value3",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 131,
+			"vw2_offset": 757,
+			"name": "pad3.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 132,
+			"vw2_offset": 782,
+			"name": "pad3.color1",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 133,
+			"vw2_offset": 783,
+			"name": "pad3.color2",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 134,
+			"vw2_offset": 784,
+			"name": "pad3.color3",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 135,
+			"vw2_offset": 785,
+			"name": "pad3.color4",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 136,
+			"vw2_offset": 810,
+			"name": "pad4.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Note",
+					"CC Toggle",
+					"CC Momentary",
+					"Program Change",
+					"Panic"
+				]
+			}
+		},
+		{
+			"msg_offset": 137,
+			"vw2_offset": 811,
+			"name": "pad4.value1",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 138,
+			"vw2_offset": 812,
+			"name": "pad4.value2",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 139,
+			"vw2_offset": 813,
+			"name": "pad4.value3",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 140,
+			"vw2_offset": 814,
+			"name": "pad4.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 141,
+			"vw2_offset": 839,
+			"name": "pad4.color1",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 142,
+			"vw2_offset": 840,
+			"name": "pad4.color2",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 143,
+			"vw2_offset": 841,
+			"name": "pad4.color3",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 144,
+			"vw2_offset": 842,
+			"name": "pad4.color4",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 145,
+			"vw2_offset": 867,
+			"name": "pad5.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Note",
+					"CC Toggle",
+					"CC Momentary",
+					"Program Change",
+					"Panic"
+				]
+			}
+		},
+		{
+			"msg_offset": 146,
+			"vw2_offset": 868,
+			"name": "pad5.value1",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 147,
+			"vw2_offset": 869,
+			"name": "pad5.value2",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 148,
+			"vw2_offset": 870,
+			"name": "pad5.value3",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 149,
+			"vw2_offset": 871,
+			"name": "pad5.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 150,
+			"vw2_offset": 896,
+			"name": "pad5.color1",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 151,
+			"vw2_offset": 897,
+			"name": "pad5.color2",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 152,
+			"vw2_offset": 898,
+			"name": "pad5.color3",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 153,
+			"vw2_offset": 899,
+			"name": "pad5.color4",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 154,
+			"vw2_offset": 924,
+			"name": "pad6.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Note",
+					"CC Toggle",
+					"CC Momentary",
+					"Program Change",
+					"Panic"
+				]
+			}
+		},
+		{
+			"msg_offset": 155,
+			"vw2_offset": 925,
+			"name": "pad6.value1",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 156,
+			"vw2_offset": 926,
+			"name": "pad6.value2",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 157,
+			"vw2_offset": 927,
+			"name": "pad6.value3",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 158,
+			"vw2_offset": 928,
+			"name": "pad6.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 159,
+			"vw2_offset": 953,
+			"name": "pad6.color1",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 160,
+			"vw2_offset": 954,
+			"name": "pad6.color2",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 161,
+			"vw2_offset": 955,
+			"name": "pad6.color3",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 162,
+			"vw2_offset": 956,
+			"name": "pad6.color4",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 163,
+			"vw2_offset": 981,
+			"name": "pad7.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Note",
+					"CC Toggle",
+					"CC Momentary",
+					"Program Change",
+					"Panic"
+				]
+			}
+		},
+		{
+			"msg_offset": 164,
+			"vw2_offset": 982,
+			"name": "pad7.value1",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 165,
+			"vw2_offset": 983,
+			"name": "pad7.value2",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 166,
+			"vw2_offset": 984,
+			"name": "pad7.value3",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 167,
+			"vw2_offset": 985,
+			"name": "pad7.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 168,
+			"vw2_offset": 1010,
+			"name": "pad7.color1",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 169,
+			"vw2_offset": 1011,
+			"name": "pad7.color2",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 170,
+			"vw2_offset": 1012,
+			"name": "pad7.color3",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 171,
+			"vw2_offset": 1013,
+			"name": "pad7.color4",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 172,
+			"vw2_offset": 1038,
+			"name": "pad8.type",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Note",
+					"CC Toggle",
+					"CC Momentary",
+					"Program Change",
+					"Panic"
+				]
+			}
+		},
+		{
+			"msg_offset": 173,
+			"vw2_offset": 1039,
+			"name": "pad8.value1",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 174,
+			"vw2_offset": 1040,
+			"name": "pad8.value2",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 175,
+			"vw2_offset": 1041,
+			"name": "pad8.value3",
+			"role": "parameter",
+			"encoding": {
+				"type": "int",
+				"byte_min": 0,
+				"byte_max": 127,
+				"display_offset": 0
+			}
+		},
+		{
+			"msg_offset": 176,
+			"vw2_offset": 1042,
+			"name": "pad8.channel",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"Channel 1",
+					"Channel 2",
+					"Channel 3",
+					"Channel 4",
+					"Channel 5",
+					"Channel 6",
+					"Channel 7",
+					"Channel 8",
+					"Channel 9",
+					"Channel 10",
+					"Channel 11",
+					"Channel 12",
+					"Channel 13",
+					"Channel 14",
+					"Channel 15",
+					"Channel 16"
+				]
+			}
+		},
+		{
+			"msg_offset": 177,
+			"vw2_offset": 1067,
+			"name": "pad8.color1",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 178,
+			"vw2_offset": 1068,
+			"name": "pad8.color2",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 179,
+			"vw2_offset": 1069,
+			"name": "pad8.color3",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 180,
+			"vw2_offset": 1070,
+			"name": "pad8.color4",
+			"role": "parameter",
+			"encoding": {
+				"type": "enum",
+				"values": [
+					"LED Off",
+					"Chartreuse",
+					"Green",
+					"Aquamarine",
+					"Cyan",
+					"Azure",
+					"Blue",
+					"Violet",
+					"Magenta",
+					"Rose",
+					"Red",
+					"Orange",
+					"Yellow",
+					"White"
+				]
+			}
+		},
+		{
+			"msg_offset": 181,
+			"name": "sysex_end",
+			"role": "constant",
+			"value": 247
+		}
+	]
 }

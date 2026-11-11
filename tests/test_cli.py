@@ -90,31 +90,14 @@ def test_device_merge_dry_run_and_write(tmp_path, doc, capsys):
 	pre.write_text(
 		json.dumps({"volume": {"cc": 11}, "wheel": {"direction": "Reverse"}})
 	)
-	assert (
-		run(
-			capsys, "convert", pre, "device", "-s", 4, "-y", "--no-backup", *port, *SIM
-		)[0]
-		== 0
-	)
+	assert run(capsys, "convert", pre, "device", "-s", 4, "-y", *port, *SIM)[0] == 0
 	code, out, _ = run(
 		capsys, "convert", doc, "device", "-s", 4, "--dry-run", *port, *SIM
 	)
 	assert code == 0 and "dry run" in out and "name" in out and "volume" not in out
-	code, out, _ = run(
-		capsys,
-		"convert",
-		doc,
-		"device",
-		"-s",
-		4,
-		"-y",
-		"--backup-dir",
-		tmp_path / "bk",
-		*port,
-		*SIM,
-	)
+	code, out, _ = run(capsys, "convert", doc, "device", "-s", 4, "-y", *port, *SIM)
 	assert code == 0 and "verified" in out
-	assert list((tmp_path / "bk").glob("*/slot-04.syx"))
+	assert not list(tmp_path.glob("**/slot-04.syx"))  # no automatic backups
 	# unmentioned fields kept what the keytar held; mentioned ones changed
 	code, out, _ = run(capsys, "convert", "device", "-", "-s", 4, *port, *SIM)
 	d = json.loads(out)
@@ -145,6 +128,63 @@ def test_slot_out_of_range_is_a_usage_error(doc, capsys):
 		assert code == 2 and "1..25" in err
 
 
+def read_slot(capsys, port, n):
+	return json.loads(run(capsys, "convert", "device", "-", "-s", n, *port, *SIM)[1])
+
+
+def test_reset_pushes_factory_defaults(tmp_path, doc, capsys):
+	port = ["--port", f"sim:{tmp_path / 'kt.json'}"]
+	assert run(capsys, "convert", doc, "device", "-s", 4, "-y", *port, *SIM)[0] == 0
+	assert read_slot(capsys, port, 4)["name"] == "Lead"
+	assert run(capsys, "reset", 4, "--dry-run", *port, *SIM)[0] == 0
+	assert read_slot(capsys, port, 4)["name"] == "Lead"
+	code, out, _ = run(capsys, "reset", 4, "-y", *port, *SIM)
+	assert code == 0 and "verified" in out
+	assert vl.apply_doc(vl.factory(4), read_slot(capsys, port, 4))[0] == vl.factory(4)
+	assert not list(tmp_path.glob("vortex-backups"))
+
+
+def test_reset_argument_rules(capsys):
+	assert run(capsys, "reset", "--port", "sim")[0] == 2  # nothing named
+	assert run(capsys, "reset", 3, "--all", "--port", "sim")[0] == 2
+	assert run(capsys, "reset", 26, "-y", "--port", "sim")[0] == 2
+	assert run(capsys, "reset", 3, "--port", "sim")[0] == 2  # no TTY: needs --yes
+
+
+def test_complete_input_is_written_without_reading(tmp_path, capsys):
+	"""A complete preset replaces the slot; the keytar is not read first (only the verifying read-back)."""
+	sent = []
+
+	class Recorder(vl.SimKeytar):
+		def send(self, data):
+			sent.append(data[6])  # command byte: 0 = Get, 1 = Set
+			super().send(data)
+
+	import contextlib
+
+	import vortex_cli.cli as cli
+
+	real = cli.open_device
+	cli.open_device = lambda args: contextlib.nullcontext(
+		vl.Keytar(Recorder(), vl.Timing(settle=0.55))
+	)
+	full = tmp_path / "full.json"
+	full.write_bytes(vl.dump(vl.factory(5), "json", 5))
+	try:
+		code, out, _ = run(capsys, "convert", full, "device", "-y")
+	finally:
+		cli.open_device = real
+	assert code == 0 and "replacing the whole preset" in out
+	assert sent[0] == 1  # the first message is the Set, not a Get
+
+
+def test_complete_json_detection():
+	full = vl.preset_to_doc(vl.factory(3), slot=3)
+	assert vl.is_complete_doc(full)
+	assert not vl.is_complete_doc({"name": "x"})
+	assert not vl.is_complete_doc({k: v for k, v in full.items() if k != "volume"})
+
+
 def test_backup_and_restore(tmp_path, capsys):
 	port = ["--port", f"sim:{tmp_path / 'kt.json'}", *SIM]
 	assert run(capsys, "backup", tmp_path / "b", *port)[0] == 0
@@ -153,6 +193,18 @@ def test_backup_and_restore(tmp_path, capsys):
 		run(capsys, "convert", tmp_path / "b" / "slot-07.syx", "device", "-y", *port)[0]
 		== 0
 	)
+
+
+def test_indentation_is_tabs():
+	"""JSON, TOML and Markdown are indented with tabs (Python is covered by ruff format; YAML cannot be)."""
+	import importlib.util
+
+	spec = importlib.util.spec_from_file_location(
+		"check_tabs", ROOT / "tools" / "check_tabs.py"
+	)
+	mod = importlib.util.module_from_spec(spec)
+	spec.loader.exec_module(mod)
+	assert mod.main([]) == 0
 
 
 def test_generated_files_are_current():
@@ -253,12 +305,22 @@ def test_build_pair_matches_the_spec_layout():
 		assert codec.build_pair(dongle_id) == bytes.fromhex(hexstr)
 
 
-@pytest.mark.parametrize("bad", ["", "24681", "1234561", "24681a", "24 681", "٢٤٦٨١٠"])
+@pytest.mark.parametrize("bad", ["", "24681", "24681a", "24 681", "٢٤٦٨١٠", "٢٤٦٨١٠١٢٣٤٥٦"])
 def test_build_pair_rejects_bad_ids(bad):
 	from vortexlib import codec
 
 	with pytest.raises(ValueError):
 		codec.build_pair(bad)
+
+
+def test_pair_uses_the_rightmost_six_digits(capsys):
+	from vortexlib import codec
+
+	for typed in ("123456", "0123456", "99123456", "5551234567890123456"):
+		assert codec.build_pair(typed) == codec.build_pair(typed[-6:])
+	assert codec.build_pair("99123456") == bytes.fromhex(PAIR_EXAMPLES["123456"])
+	code, out, _ = run(capsys, "pair", "99123456", "--dry-run", "--port", "sim")
+	assert code == 0 and PAIR_EXAMPLES["123456"] in out
 
 
 def test_pair_dry_run_and_bad_id(capsys):

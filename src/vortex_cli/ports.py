@@ -103,7 +103,7 @@ def open_keytar(
 		finally:
 			if path is not None:
 				path.write_text(
-					json.dumps({"slots": [b.hex() for b in sim.snapshot()]}, indent=1)
+					json.dumps({"slots": [b.hex() for b in sim.snapshot()]}, indent="	")
 				)
 		return
 	ins, outs = list_ports()

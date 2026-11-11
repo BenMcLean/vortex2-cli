@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import argparse
-import datetime
 import json
 import pathlib
 import sys
@@ -86,6 +85,30 @@ def write_file(path: str, data: bytes, force: bool) -> None:
 	p.write_bytes(data)
 
 
+def push_slot(args, kt, slot: int, new: vl.Preset, current: vl.Preset | None) -> None:
+	"""Validate, show, confirm and write ``new`` to ``slot``.  ``current`` is what the slot held, if it
+	was read (to show a diff and skip a no-op write); None when the whole preset is being replaced."""
+	if new.problems():
+		raise vl.DeviceError(
+			"refusing to write an invalid preset: " + "; ".join(new.problems())
+		)
+	if current is None:
+		print(f"slot {slot}: replacing the whole preset with {new.name!r}")
+	else:
+		rows = vl.diff_presets(current, new)
+		if not rows:
+			print(f"slot {slot} already matches; nothing to write")
+			return
+		print(f"slot {slot} ({current.name!r} -> {new.name!r}): {len(rows)} change(s)")
+		show_diff(rows)
+	if args.dry_run:
+		print("dry run: nothing written")
+		return
+	confirm(args, f"Write slot {slot} on the keytar?")
+	kt.write(slot, new)
+	print(f"slot {slot} written and verified")
+
+
 # -- convert ----------------------------------------------------------------------------------
 
 
@@ -119,34 +142,20 @@ def cmd_convert(args) -> int:
 				"no slot: the input does not name one and --slot was not given"
 			)
 		vl.check_slot(slot)
-		with open_device(args) as kt:
-			current = kt.read(slot)
-			new = vl.resolve(
-				loaded, current
-			)  # omitted fields keep what the keytar holds
-			if new.problems():
-				raise vl.DeviceError(
-					"refusing to write an invalid preset: " + "; ".join(new.problems())
-				)
-			rows = vl.diff_presets(current, new)
-			if not rows:
-				print(f"slot {slot} already matches; nothing to write")
-				return 0
-			print(
-				f"slot {slot} ({current.name!r} -> {new.name!r}): {len(rows)} change(s)"
-			)
-			show_diff(rows)
+		if loaded.complete:
+			# nothing to fill in, so there is nothing to read first
+			new = vl.resolve(loaded, vl.factory(slot))
 			if args.dry_run:
+				print(f"slot {slot}: would replace the whole preset with {new.name!r}")
 				print("dry run: nothing written")
 				return 0
-			confirm(args, f"Write slot {slot} on the keytar?")
-			if not args.no_backup:
-				stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-				print(
-					f"previous contents saved to {write_backup(pathlib.Path(args.backup_dir) / stamp, slot, current)}"
-				)
-			kt.write(slot, new)
-			print(f"slot {slot} written and verified")
+			with open_device(args) as kt:
+				push_slot(args, kt, slot, new, None)
+			return 0
+		with open_device(args) as kt:
+			current = kt.read(slot)
+			new = vl.resolve(loaded, current)  # omitted fields keep what the keytar holds
+			push_slot(args, kt, slot, new, current)
 		return 0
 
 	# 3. write to a file / stdout
@@ -182,6 +191,30 @@ def cmd_convert(args) -> int:
 	return 0
 
 
+# -- reset ------------------------------------------------------------------------------------
+
+
+def cmd_reset(args) -> int:
+	if args.all == bool(args.slots):
+		raise UsageError("name the slots to reset (e.g. 'reset 3 5'), or pass --all")
+	slots = list(range(1, vl.SLOT_COUNT + 1)) if args.all else sorted(set(args.slots))
+	for n in slots:
+		try:
+			vl.check_slot(n)
+		except ValueError as e:
+			raise UsageError(str(e)) from None
+	which = "all 25 slots" if args.all else "slot " + ", ".join(map(str, slots))
+	if args.dry_run:
+		print(f"dry run: would reset {which} to factory defaults")
+		return 0
+	confirm(args, f"Reset {which} to factory defaults on the keytar?")
+	with open_device(args) as kt:
+		for n in slots:
+			kt.write(n, vl.factory(n))
+			print(f"slot {n} reset and verified")
+	return 0
+
+
 # -- backup -----------------------------------------------------------------------------------
 
 
@@ -205,7 +238,8 @@ def cmd_pair(args) -> int:
 	from vortexlib import codec
 
 	try:
-		message = codec.build_pair(args.dongle_id)
+		dongle_id = codec.pair_id(args.dongle_id)
+		message = codec.build_pair(dongle_id)
 	except ValueError as e:
 		raise UsageError(str(e)) from None
 	dest = args.dest
@@ -219,11 +253,11 @@ def cmd_pair(args) -> int:
 		return 0
 	if dest != DEVICE:
 		write_file(dest, message, args.force)
-		eprint(f"wrote {dest} (pairing for dongle {args.dongle_id})")
+		eprint(f"wrote {dest} (pairing for dongle {dongle_id})")
 		return 0
 	with open_device(args) as kt:
-		kt.pair(args.dongle_id)
-	print(f"paired with dongle {args.dongle_id}")
+		kt.pair(dongle_id)
+	print(f"paired with dongle {dongle_id}")
 	return 0
 
 
@@ -287,7 +321,7 @@ def cmd_fields(args) -> int:
 
 
 def cmd_schema(args) -> int:
-	sys.stdout.write(json.dumps(vl.json_schema(), indent=2) + "\n")
+	sys.stdout.write(json.dumps(vl.json_schema(), indent="	") + "\n")
 	return 0
 
 
@@ -372,16 +406,6 @@ def build_parser() -> argparse.ArgumentParser:
 		help="do not ask before writing to the keytar",
 	)
 	c.add_argument(
-		"--no-backup",
-		action="store_true",
-		help="do not save the keytar's previous slot contents before writing",
-	)
-	c.add_argument(
-		"--backup-dir",
-		default="vortex-backups",
-		help="where backups go (default ./vortex-backups)",
-	)
-	c.add_argument(
 		"--force", action="store_true", help="overwrite an existing output file"
 	)
 	c.add_argument(
@@ -399,15 +423,34 @@ def build_parser() -> argparse.ArgumentParser:
 	b.add_argument("directory")
 	b.set_defaults(func=cmd_backup)
 
+	r = sub.add_parser(
+		"reset",
+		parents=[dev],
+		help="set slots back to Alesis's factory defaults",
+		description="Write Alesis's factory-default preset into the given slots (or --all). Nothing is read first.",
+	)
+	r.add_argument("slots", nargs="*", type=int, help="slot numbers 1-25")
+	r.add_argument("--all", action="store_true", help="reset all 25 slots")
+	r.add_argument(
+		"-n", "--dry-run", action="store_true", help="say what would be reset; write nothing"
+	)
+	r.add_argument(
+		"-y", "--yes", action="store_true", help="do not ask before writing to the keytar"
+	)
+	r.set_defaults(func=cmd_reset)
+
 	pr = sub.add_parser(
 		"pair",
 		parents=[dev],
-		help="pair the keytar with a wireless dongle by its six-digit ID",
+		help="pair the keytar with a wireless dongle (last six digits of its sticker number)",
 		description="Send the wireless-receiver pairing message for DONGLE_ID (the six digits the editor's "
 		"pairing dialog asks for) to the keytar, or with a .syx DEST write it to a file for any MIDI tool. "
 		"Sending it replaces the keytar's current pairing.",
 	)
-	pr.add_argument("dongle_id", help="six-digit dongle ID, e.g. 123456")
+	pr.add_argument(
+		"dongle_id",
+		help="the last six digits of the number on the dongle's sticker, e.g. 123456 (a longer number is fine: the rightmost six are used)",
+	)
 	pr.add_argument(
 		"dest",
 		nargs="?",
