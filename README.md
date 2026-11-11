@@ -9,7 +9,7 @@ It converts between four representations of a preset, in any direction:
 | `.vw2` | the file format of Alesis's "Vortex Wireless 2 Preset Editor" |
 | `.json` | a human-editable description, partial or complete ([format](docs/preset-format.md)) |
 | `.syx` | a ready-to-send SysEx message, for any generic MIDI tool |
-| the keytar | read or write a slot directly over USB MIDI |
+| the keytar | read or write a slot directly over USB MIDI or pair it with a wireless dongle |
 
 The key feature: **a JSON file only has to mention what it wants to change.** Converting to the keytar reads the slot's
 current contents and applies just those fields; converting to a file fills the gaps from Alesis's factory defaults.
@@ -25,6 +25,8 @@ vortex convert lead.json lead.vw2 --slot 3           # or make a file for the ve
 vortex convert lead.json lead.syx --slot 3           # or a SysEx file
 vortex convert device now.json --slot 3              # read a slot back as JSON
 vortex backup my-keytar/                             # save all 25 slots
+vortex pair 123456                                   # pair the keytar with a wireless dongle (its six-digit ID)
+vortex pair 123456 pair.syx                          # or save that pairing message as a SysEx file
 ```
 
 ## Documentation
@@ -46,11 +48,16 @@ vortex backup my-keytar/                             # save all 25 slots
 ## Status and caveats
 
 * The protocol knowledge comes from [spec/SPEC.md](spec/SPEC.md), measured on **one** keytar with one editor version.
-  Firmware differences are unknown. The spec's open questions apply: e.g. whether writing the currently active slot
-  takes effect immediately.
+  The spec's open questions apply: e.g. whether writing the currently active slot takes effect immediately.
 * The conversion code is tested byte-for-byte against all the spec's vectors, and the device logic against a
-  simulated keytar (`--port sim`). **It has not yet been run against a physical keytar.** Try `--dry-run` and
-  `vortex backup` first.
+  simulated keytar (`--port sim`).
+* **Tested on hardware:** a keytar on firmware 1.1.5, connected by **USB cable**, on Windows 11. `devices`, `backup`
+  (all 25 slots), `convert` from the keytar, `--dry-run`, a full write with verify, a partial (single-field) update,
+  an unchanged re-write (correctly skipped), a `.vw2` round trip, restoring from a backup `.syx`, and the error paths
+  (missing or out-of-range slot, unknown key, out-of-range value, wrong port) all behaved as documented.
+  `pair` was checked on the wire with a MIDI monitor: it sends the same message as the vendor editor.
+* Not yet exercised: writing the slot that is currently active on the keytar, writing while it is being played, and
+  other firmware versions or operating systems. Try `--dry-run` and `vortex backup` first.
 * This is unofficial and unaffiliated with Alesis/inMusic. Use at your own risk.
 
 ## Development

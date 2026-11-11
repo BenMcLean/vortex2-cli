@@ -80,6 +80,26 @@ cat lead.json | vortex convert - device -s 3 -y
 Reads all 25 slots into `DIRECTORY/slot-01.syx` .. `slot-25.syx` (each a Set message that restores that slot) plus a
 readable `slot-NN.json` for each. Takes the connection options.
 
+## `pair DONGLE_ID [DEST]`
+
+Pair the keytar with a Vortex Wireless 2 USB dongle, given the six-digit ID the editor's pairing dialog asks for (spec section 8.2).
+It sends the one SysEx message the editor sends. **This replaces the keytar's current pairing.**
+
+```sh
+vortex pair 123456                  # send the pairing message for dongle 123456 to the keytar
+vortex pair 123456 --dry-run        # print the message; send nothing
+vortex pair 123456 pair.syx         # write it to a .syx file instead, for any MIDI tool
+```
+
+`DEST` is `device` (the default) or a `.syx` file; an existing file is only replaced with `--force`.
+
+| option | |
+|---|---|
+| `-n`, `--dry-run` | Print the message; send or write nothing. |
+| `--force` | Overwrite an existing `.syx` file. |
+
+Sending to the keytar happens immediately, with no confirmation prompt. The connection options below apply.
+
 ## `validate FILE...`
 
 Checks `.json`, `.vw2` and `.syx` files (strict readers: exact sizes, structure, ranges) and reports every problem.
@@ -93,7 +113,7 @@ Lists MIDI input/output ports and whether a "Vortex Wireless 2" is visible.
 
 Print the table of every JSON key (see also [fields.md](fields.md)) and the JSON Schema.
 
-## Connection options (`convert`, `backup`)
+## Connection options (`convert`, `backup`, `pair`)
 
 | option | default | |
 |---|---|---|

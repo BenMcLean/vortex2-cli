@@ -907,6 +907,21 @@ The device never acknowledges anything, so reliability comes from verifying by r
 - **Names**: the device keeps whatever 7-bit bytes you send, but the vendor editor's treatment of non-printable or non-ASCII names was not
   measured, so write printable ASCII `20..7E` only.
 
+### 8.2 Wireless-receiver pairing (non-normative)
+
+The editor's pairing dialog takes a six-digit dongle ID and sends one SysEx message on the same port pair. Captured at the OS MIDI API
+([M], two captures with different IDs; the device sent no reply in either):
+
+```
+F0 00 20 2B 68 3C 00 | d1 d2 d3 d4 d5 d6 | 30 30 30 30 30 30 30 30 30 30 30 30 30 | F7
+```
+
+- The manufacturer bytes `00 20 2B` differ from the `00 00 0E` used by the preset messages (section 3).
+- `d1..d6` are the ID digits as ASCII (`0x30`..`0x39`). Only these six bytes differed between the captures.
+- The thirteen trailing `30` bytes were identical in both captures [U: padding or an unused field].
+- [D] Sending it replaces the current pairing. The device sends no reply to it.
+- [M] A message built from this layout and sent by a host other than the editor was confirmed with a MIDI monitor.
+
 ## 9. Conformance
 
 An implementation conforms if it passes all of the following, using only this document and the files in `spec/`. A reference check built
@@ -947,8 +962,8 @@ Open questions [U] (an implementation must not rely on any of these):
 - port naming and sharing behaviour on hosts other than Windows;
 - how the vendor editor limits name entry (length and characters);
 - behaviour on firmware or editor versions other than those measured (the firmware version was not recorded);
-- the wireless-receiver pairing command (a different SysEx exchange, not captured; deliberately not tested because it can change the
-  radio pairing of the device).
+- whether the pairing message (section 8.2) takes effect on every firmware version, and what the thirteen trailing `0` bytes mean (they were
+  identical in both captures).
 
 ## Appendix A. Data file formats
 

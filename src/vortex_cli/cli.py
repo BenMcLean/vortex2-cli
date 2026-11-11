@@ -97,7 +97,10 @@ def cmd_convert(args) -> int:
 		)
 	slot = args.slot
 	if slot is not None:
-		vl.check_slot(slot)
+		try:
+			vl.check_slot(slot)
+		except ValueError as e:
+			raise UsageError(str(e)) from None
 
 	# 1. read the source
 	if src == DEVICE:
@@ -192,6 +195,35 @@ def cmd_backup(args) -> int:
 	print(
 		f"saved to {out}; restore one with: vortex convert {out / 'slot-NN.syx'} device --yes"
 	)
+	return 0
+
+
+# -- pair -------------------------------------------------------------------------------------
+
+
+def cmd_pair(args) -> int:
+	from vortexlib import codec
+
+	try:
+		message = codec.build_pair(args.dongle_id)
+	except ValueError as e:
+		raise UsageError(str(e)) from None
+	dest = args.dest
+	if dest != DEVICE and format_of(dest, None) != "syx":
+		raise UsageError(
+			f"cannot export a pairing to {dest!r}; use 'device' or a .syx file"
+		)
+	if args.dry_run:
+		target = "send" if dest == DEVICE else f"write to {dest}"
+		print(f"dry run: would {target} {message.hex(' ')}")
+		return 0
+	if dest != DEVICE:
+		write_file(dest, message, args.force)
+		eprint(f"wrote {dest} (pairing for dongle {args.dongle_id})")
+		return 0
+	with open_device(args) as kt:
+		kt.pair(args.dongle_id)
+	print(f"paired with dongle {args.dongle_id}")
 	return 0
 
 
@@ -366,6 +398,29 @@ def build_parser() -> argparse.ArgumentParser:
 	)
 	b.add_argument("directory")
 	b.set_defaults(func=cmd_backup)
+
+	pr = sub.add_parser(
+		"pair",
+		parents=[dev],
+		help="pair the keytar with a wireless dongle by its six-digit ID",
+		description="Send the wireless-receiver pairing message for DONGLE_ID (the six digits the editor's "
+		"pairing dialog asks for) to the keytar, or with a .syx DEST write it to a file for any MIDI tool. "
+		"Sending it replaces the keytar's current pairing.",
+	)
+	pr.add_argument("dongle_id", help="six-digit dongle ID, e.g. 123456")
+	pr.add_argument(
+		"dest",
+		nargs="?",
+		default=DEVICE,
+		help="'device' (the default: send it to the keytar) or a .syx file to write instead",
+	)
+	pr.add_argument(
+		"--force", action="store_true", help="overwrite an existing .syx file"
+	)
+	pr.add_argument(
+		"-n", "--dry-run", action="store_true", help="show the message; send nothing"
+	)
+	pr.set_defaults(func=cmd_pair)
 
 	v = sub.add_parser(
 		"validate", help="check preset files (.json, .vw2, .syx) without converting"

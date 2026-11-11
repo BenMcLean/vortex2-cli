@@ -55,6 +55,11 @@ class Keytar:
 		self._sleep = sleep
 		self._clock = clock
 
+	def pair(self, dongle_id: str) -> None:
+		"""Send the wireless-receiver pairing message (spec section 8.2).  The device sends no reply."""
+		self.transport.send(codec.build_pair(dongle_id))
+		self._sleep(self.timing.settle)
+
 	def read(self, slot: int) -> Preset:
 		"""Read ``slot`` (1..25).  Silence is the only error signal, so it is retried."""
 		idx = check_slot(slot) - 1

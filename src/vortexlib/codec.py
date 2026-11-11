@@ -20,6 +20,22 @@ class FormatError(ValueError):
 # -- SysEx ------------------------------------------------------------------
 
 
+PAIR_PREFIX = bytes([0xF0, 0x00, 0x20, 0x2B, 0x68, 0x3C, 0x00])
+PAIR_SUFFIX = b"0" * 13 + b"\xf7"
+PAIR_ID_LEN = 6
+
+
+def build_pair(dongle_id: str) -> bytes:
+	"""Wireless-receiver pairing message for a six-digit dongle ID (spec section 8.2).
+
+	Measured from two editor captures with different IDs: a fixed prefix, the ID as six ASCII
+	digits, then thirteen ASCII ``0`` bytes.  The device sends no reply.
+	"""
+	if len(dongle_id) != PAIR_ID_LEN or not (dongle_id.isascii() and dongle_id.isdigit()):
+		raise ValueError(f"a dongle ID is {PAIR_ID_LEN} digits, got {dongle_id!r}")
+	return PAIR_PREFIX + dongle_id.encode("ascii") + PAIR_SUFFIX
+
+
 def build_get(slot: int) -> bytes:
 	"""Get message for zero-based wire index ``slot``."""
 	return HEADER + bytes([CMD_GET, 0x00, 0x01, slot, 0xF7])

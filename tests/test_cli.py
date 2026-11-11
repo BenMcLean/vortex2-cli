@@ -139,6 +139,12 @@ def test_device_needs_slot_and_confirmation(doc, capsys):
 	assert code == 2 and "--yes" in err
 
 
+def test_slot_out_of_range_is_a_usage_error(doc, capsys):
+	for slot in (0, 26):
+		code, _, err = run(capsys, "convert", doc, "device", "-s", slot, "--port", "sim")
+		assert code == 2 and "1..25" in err
+
+
 def test_backup_and_restore(tmp_path, capsys):
 	port = ["--port", f"sim:{tmp_path / 'kt.json'}", *SIM]
 	assert run(capsys, "backup", tmp_path / "b", *port)[0] == 0
@@ -230,3 +236,79 @@ def test_examples_are_valid(capsys):
 	v = jsonschema.Draft202012Validator(vl.json_schema())
 	for f in files:
 		assert not list(v.iter_errors(json.loads(f.read_text()))), f
+
+
+# -- pairing (spec 8.2): example messages laid out as the spec describes -------------------------
+
+PAIR_EXAMPLES = {
+	"123456": "f0 00 20 2b 68 3c 00 31 32 33 34 35 36 30 30 30 30 30 30 30 30 30 30 30 30 30 f7",
+	"654321": "f0 00 20 2b 68 3c 00 36 35 34 33 32 31 30 30 30 30 30 30 30 30 30 30 30 30 30 f7",
+}
+
+
+def test_build_pair_matches_the_spec_layout():
+	from vortexlib import codec
+
+	for dongle_id, hexstr in PAIR_EXAMPLES.items():
+		assert codec.build_pair(dongle_id) == bytes.fromhex(hexstr)
+
+
+@pytest.mark.parametrize("bad", ["", "24681", "1234561", "24681a", "24 681", "٢٤٦٨١٠"])
+def test_build_pair_rejects_bad_ids(bad):
+	from vortexlib import codec
+
+	with pytest.raises(ValueError):
+		codec.build_pair(bad)
+
+
+def test_pair_dry_run_and_bad_id(capsys):
+	code, out, _ = run(capsys, "pair", "123456", "--dry-run", "--port", "sim")
+	assert code == 0 and PAIR_EXAMPLES["123456"] in out
+	code, _, err = run(capsys, "pair", "40024", "--port", "sim")
+	assert code == 2 and "6 digits" in err
+
+
+def test_pair_sends_without_prompting(capsys):
+	code, out, _ = run(capsys, "pair", "123456", "--port", "sim")
+	assert code == 0 and "paired with dongle" in out
+
+
+def test_pair_sends_the_spec_message(capsys):
+	sent = []
+
+	class Recorder(vl.SimKeytar):
+		def send(self, data):
+			sent.append(data)
+
+	import vortex_cli.cli as cli
+
+	real = cli.open_device
+	cli.open_device = lambda args: __import__("contextlib").nullcontext(
+		vl.Keytar(Recorder(), vl.Timing(settle=0))
+	)
+	try:
+		code, out, _ = run(capsys, "pair", "654321")
+	finally:
+		cli.open_device = real
+	assert code == 0 and "paired with dongle" in out
+	assert sent == [bytes.fromhex(PAIR_EXAMPLES["654321"])]
+
+
+def test_pair_exports_a_syx_file(tmp_path, capsys):
+	out = tmp_path / "pair.syx"
+	code, _, err = run(capsys, "pair", "654321", out)
+	assert code == 0 and "wrote" in err
+	assert out.read_bytes() == bytes.fromhex(PAIR_EXAMPLES["654321"])
+	assert run(capsys, "pair", "123456", out)[0] == 2  # no overwrite without --force
+	assert run(capsys, "pair", "123456", out, "--force")[0] == 0
+	assert out.read_bytes() == bytes.fromhex(PAIR_EXAMPLES["123456"])
+
+
+def test_pair_export_dry_run_and_bad_dest(tmp_path, capsys):
+	out = tmp_path / "pair.syx"
+	code, text, _ = run(capsys, "pair", "123456", out, "--dry-run")
+	assert code == 0 and not out.exists() and PAIR_EXAMPLES["123456"] in text
+	code, _, err = run(capsys, "pair", "123456", tmp_path / "pair.txt")
+	assert code == 2 and ".syx" in err
+	code, _, err = run(capsys, "pair", "12345", out)
+	assert code == 2 and not out.exists()
