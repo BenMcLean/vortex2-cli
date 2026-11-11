@@ -26,7 +26,7 @@ def _mido():
 		return mido
 	except ImportError:
 		raise PortError(
-			'MIDI support is not installed; run: pip install "vortex-cli[midi]"'
+			'MIDI support is not installed; run: pip install "vortex2-cli[midi]"'
 		) from None
 
 

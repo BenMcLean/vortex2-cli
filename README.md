@@ -1,4 +1,4 @@
-# vortex-cli
+# vortex2-cli
 
 Command-line tool and Python library for managing presets on the **Alesis Vortex Wireless 2** keytar.
 
@@ -15,19 +15,19 @@ The key feature: **a JSON file only has to mention what it wants to change.** Co
 current contents and applies just those fields; converting to a file fills the gaps from Alesis's factory defaults.
 
 ```sh
-pip install "vortex-cli[midi]"
+pip install "vortex2-cli[midi]"
 
 echo '{ "name": "Lead", "fader3": { "cc": 74 } }' > lead.json
 
-vortex convert lead.json device --slot 3 --dry-run   # preview: shows exactly which settings change
-vortex convert lead.json device --slot 3             # apply them (verifies after)
-vortex convert lead.json lead.vw2 --slot 3           # or make a file for the vendor editor
-vortex convert lead.json lead.syx --slot 3           # or a SysEx file
-vortex convert device now.json --slot 3              # read a slot back as JSON
-vortex factory device 3                              # slot 3 back to factory defaults
-vortex backup my-keytar/                             # save all 25 slots
-vortex pair 123456                                   # pair with a wireless dongle (last six digits of the sticker number)
-vortex pair 123456 pair.syx                          # or save that pairing message as a SysEx file
+vortex2 convert lead.json device --slot 3 --dry-run   # preview: shows exactly which settings change
+vortex2 convert lead.json device --slot 3             # apply them (verifies after)
+vortex2 convert lead.json lead.vw2 --slot 3           # or make a file for the vendor editor
+vortex2 convert lead.json lead.syx --slot 3           # or a SysEx file
+vortex2 convert device now.json --slot 3              # read a slot back as JSON
+vortex2 factory device 3                              # slot 3 back to factory defaults
+vortex2 backup my-keytar/                             # save all 25 slots
+vortex2 pair 123456                                   # pair with a wireless dongle (last six digits of the sticker number)
+vortex2 pair 123456 pair.syx                          # or save that pairing message as a SysEx file
 ```
 
 ## Documentation
@@ -58,7 +58,7 @@ vortex pair 123456 pair.syx                          # or save that pairing mess
 	(missing or out-of-range slot, unknown key, out-of-range value, wrong port) all behaved as documented.
 	`pair` was checked on the wire with a MIDI monitor: it sends the same message as the vendor editor.
 * Not yet exercised: writing the slot that is currently active on the keytar, writing while it is being played, and
-	other firmware versions or operating systems. Try `--dry-run` and `vortex backup` first.
+	other firmware versions or operating systems. Try `--dry-run` and `vortex2 backup` first.
 * This is unofficial and unaffiliated with Alesis/inMusic. Use at your own risk.
 
 ## Development

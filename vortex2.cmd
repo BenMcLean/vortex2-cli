@@ -1,5 +1,5 @@
 @echo off
-rem Run vortex-cli straight from source, without installing the package.
+rem Run vortex2-cli straight from source, without installing the package.
 rem Uses whatever Python is on PATH (falls back to the "py" launcher).
 setlocal
 set "PYTHONPATH=%~dp0src;%PYTHONPATH%"
@@ -16,5 +16,5 @@ if not errorlevel 1 (
 	exit /b %ERRORLEVEL%
 )
 
-echo vortex-cli: no Python found on PATH. Install Python 3.10+ from python.org. 1>&2
+echo vortex2-cli: no Python found on PATH. Install Python 3.10+ from python.org. 1>&2
 exit /b 1

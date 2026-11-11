@@ -1,12 +1,12 @@
 # Command-line reference
 
 ```
-vortex <command> [options]
+vortex2 <command> [options]
 ```
 
 **Argument order never matters.** Options may come before or after the command word and may sit between the
-positional arguments: `vortex --slot 3 convert a.json device`, `vortex convert a.json --slot 3 device` and
-`vortex convert a.json device --slot 3` are identical. (The only restriction: a file literally named like a command,
+positional arguments: `vortex2 --slot 3 convert a.json device`, `vortex2 convert a.json --slot 3 device` and
+`vortex2 convert a.json device --slot 3` are identical. (The only restriction: a file literally named like a command,
 e.g. `convert`, must be written `./convert`.)
 
 Slots are **1-25**, like the vendor editor's "Preset 1".."Preset 25".
@@ -49,7 +49,7 @@ factory base uses `slot - 1`; with no slot the program number defaults to 0.
 ### Writing to the keytar
 
 ```
-$ vortex convert lead.json device --slot 3
+$ vortex2 convert lead.json device --slot 3
 slot 3 ('' -> 'Lead'): 2 change(s)
   name: "" -> "Lead"
   fader3.cc: 16 -> 74
@@ -65,22 +65,22 @@ A **whole preset** (a `.vw2` or `.syx` file, or a JSON file that states every se
 the slot is not read first: you are told it is being replaced, asked, and it is written and verified.
 
 The tool keeps no state and writes no files you did not name. To keep what a slot holds before overwriting it, save it
-yourself: `vortex convert device before.json -s 3` (or `vortex backup DIR` for all 25).
+yourself: `vortex2 convert device before.json -s 3` (or `vortex2 backup DIR` for all 25).
 
 ### Examples
 
 ```sh
-vortex convert lead.json lead.vw2 --slot 3         # JSON -> vendor editor file (factory defaults fill the gaps)
-vortex convert lead.json lead.syx --slot 3         # JSON -> SysEx, ready for any MIDI tool
-vortex convert lead.vw2 lead.json                  # vendor file -> readable JSON
-vortex convert lead.vw2 lead.json --minimal        # ...only what differs from factory
-vortex convert device current.json -s 7            # what is on the keytar right now
-vortex convert tweak.json device -s 7 --dry-run    # preview a change
-vortex convert tweak.json device -s 7              # apply only the fields in tweak.json
-vortex convert lead.vw2 device -s 3                # replace slot 3 with a vendor-editor preset
-vortex factory device 3                            # put slot 3 back to factory defaults
-vortex factory template.json 3                     # a factory-default file to work from
-cat lead.json | vortex convert - device -s 3 -y
+vortex2 convert lead.json lead.vw2 --slot 3         # JSON -> vendor editor file (factory defaults fill the gaps)
+vortex2 convert lead.json lead.syx --slot 3         # JSON -> SysEx, ready for any MIDI tool
+vortex2 convert lead.vw2 lead.json                  # vendor file -> readable JSON
+vortex2 convert lead.vw2 lead.json --minimal        # ...only what differs from factory
+vortex2 convert device current.json -s 7            # what is on the keytar right now
+vortex2 convert tweak.json device -s 7 --dry-run    # preview a change
+vortex2 convert tweak.json device -s 7              # apply only the fields in tweak.json
+vortex2 convert lead.vw2 device -s 3                # replace slot 3 with a vendor-editor preset
+vortex2 factory device 3                            # put slot 3 back to factory defaults
+vortex2 factory template.json 3                     # a factory-default file to work from
+cat lead.json | vortex2 convert - device -s 3 -y
 ```
 
 ## `factory DEST [SLOT...] [--all]`
@@ -89,12 +89,12 @@ Writes Alesis's factory-default preset to `DEST`, which is `device` (the keytar)
 choice `convert` offers. Nothing is read first. Like a real factory reset, each slot's Program Change number is its own index.
 
 ```sh
-vortex factory device 3            # slot 3 back to factory defaults
-vortex factory device 3 5 7        # several slots
-vortex factory device --all        # all 25
-vortex factory device 3 --dry-run  # say what would happen; write nothing
-vortex factory template.json       # a complete factory-default JSON file to edit
-vortex factory lead.syx 3          # .syx needs a slot; .json and .vw2 take one optionally
+vortex2 factory device 3            # slot 3 back to factory defaults
+vortex2 factory device 3 5 7        # several slots
+vortex2 factory device --all        # all 25
+vortex2 factory device 3 --dry-run  # say what would happen; write nothing
+vortex2 factory template.json       # a complete factory-default JSON file to edit
+vortex2 factory lead.syx 3          # .syx needs a slot; .json and .vw2 take one optionally
 ```
 
 To the keytar it asks once before writing (`-y`, `--yes` skips that; required when stdin isn't a terminal), then writes
@@ -112,10 +112,10 @@ Pair the keytar with a Vortex Wireless 2 USB dongle. `DONGLE_ID` is the **last (
 It sends the one SysEx message the editor sends. **This replaces the keytar's current pairing.**
 
 ```sh
-vortex pair 123456                  # send the pairing message for dongle 123456 to the keytar
-vortex pair 99123456                # same dongle: only the rightmost six digits (123456) count
-vortex pair 123456 --dry-run        # print the message; send nothing
-vortex pair 123456 pair.syx         # write it to a .syx file instead, for any MIDI tool
+vortex2 pair 123456                  # send the pairing message for dongle 123456 to the keytar
+vortex2 pair 99123456                # same dongle: only the rightmost six digits (123456) count
+vortex2 pair 123456 --dry-run        # print the message; send nothing
+vortex2 pair 123456 pair.syx         # write it to a .syx file instead, for any MIDI tool
 ```
 
 `DEST` is `device` (the default) or a `.syx` file; an existing file is only replaced with `--force`.
@@ -133,9 +133,9 @@ Checks `.json`, `.vw2` and `.syx` files (strict readers: exact sizes, structure,
 Exit status 1 if any file is bad. Every problem in a file is reported at once, with its JSON path:
 
 ```
-vortex: volume.max: expected an integer 0..127
-vortex: nmae: unknown key (did you mean 'name'?)
-vortex: pad1.cc: only valid for CC Toggle / CC Momentary pads, not Note (valid keys here: note, velocity, curve, type, channel, ...)
+vortex2: volume.max: expected an integer 0..127
+vortex2: nmae: unknown key (did you mean 'name'?)
+vortex2: pad1.cc: only valid for CC Toggle / CC Momentary pads, not Note (valid keys here: note, velocity, curve, type, channel, ...)
 ```
 
 ## `devices`
@@ -156,7 +156,7 @@ Print the table of every JSON key (see also [fields.md](fields.md)) and the JSON
 | `--timeout S` | 1.5 | Seconds to wait for each reply; reads are retried 3 times. |
 | `--port sim` / `sim:FILE` | | A **software keytar** (spec-faithful; state saved in FILE) for trying commands safely. |
 
-MIDI access needs the optional extra: `pip install "vortex-cli[midi]"`.
+MIDI access needs the optional extra: `pip install "vortex2-cli[midi]"`.
 
 ## Exit status
 

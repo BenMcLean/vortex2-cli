@@ -252,7 +252,7 @@ def cmd_backup(args) -> int:
 			write_backup(out, slot, preset)
 			print(f"slot {slot:2d}: {preset.name!r}")
 	print(
-		f"saved to {out}; restore one with: vortex convert {out / 'slot-NN.syx'} device --yes"
+		f"saved to {out}; restore one with: vortex2 convert {out / 'slot-NN.syx'} device --yes"
 	)
 	return 0
 
@@ -356,11 +356,11 @@ def cmd_schema(args) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
 	p = argparse.ArgumentParser(
-		prog="vortex",
+		prog="vortex2",
 		description="Manage Alesis Vortex Wireless 2 presets: .vw2, .syx, JSON, and the keytar itself.",
 		epilog="Slots are numbered 1-25 like the editor's 'Preset 1'..'Preset 25'. Docs: docs/cli.md",
 	)
-	p.add_argument("--version", action="version", version=f"vortex-cli {__version__}")
+	p.add_argument("--version", action="version", version=f"vortex2-cli {__version__}")
 	sub = p.add_subparsers(dest="command", required=True, metavar="command")
 
 	dev = argparse.ArgumentParser(add_help=False)
@@ -561,11 +561,11 @@ def main(argv: Sequence[str] | None = None) -> int:
 	try:
 		return args.func(args)
 	except UsageError as e:
-		eprint(f"vortex: {e}")
+		eprint(f"vortex2: {e}")
 		return 2
 	except vl.DocError as e:
 		for m in e.errors:
-			eprint(f"vortex: {m}")
+			eprint(f"vortex2: {m}")
 		return 1
 	except (
 		vl.FormatError,
@@ -575,7 +575,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 		OSError,
 		ValueError,
 	) as e:
-		eprint(f"vortex: {e}")
+		eprint(f"vortex2: {e}")
 		return 1
 	except KeyboardInterrupt:
 		eprint("interrupted")

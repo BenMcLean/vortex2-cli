@@ -14,7 +14,7 @@ what a schema can't say: what a document *means*. Examples: [`examples/`](../exa
 ## Partial documents
 
 Every key is optional. A key you leave out is *unspecified*: the document says nothing about that setting, and what
-fills the gap is up to whatever reads it. (`vortex` uses Alesis's factory defaults when the result goes to a file and
+fills the gap is up to whatever reads it. (`vortex2` uses Alesis's factory defaults when the result goes to a file and
 what the keytar currently holds when it goes to the keytar; see [cli.md](cli.md#convert-source-dest).) So
 `{"name": "Lead"}` changes the name and nothing else.
 
@@ -26,7 +26,7 @@ pad's unused values) are zero in a complete document, as in the factory preset.
 
 `slot` is optional and counts **1 to 25**, like the vendor editor's "Preset 1".."Preset 25". (The spec's wire index is
 0-based; this format converts at the boundary and never shows you the 0-based number.) `.vw2` files have no slot.
-How `vortex` combines this with `--slot` is in [cli.md](cli.md#slot-rules).
+How `vortex2` combines this with `--slot` is in [cli.md](cli.md#slot-rules).
 
 ## Structure
 
@@ -134,10 +134,10 @@ in factory defaults. Leave them out unless you know why you need them; exports o
 ### Invalid bytes: `{"raw": n}`
 
 The keytar validates nothing, so it can hold values the format cannot name (for example channel byte 127). Reading
-such a preset emits `{"raw": 127}` for that key instead of failing. Such a value is only for files: `vortex` will
+such a preset emits `{"raw": 127}` for that key instead of failing. Such a value is only for files: `vortex2` will
 not write it to the keytar (see `--allow-invalid` in [cli.md](cli.md#convert-source-dest)).
 
 ## Validation
 
-The JSON Schema checks canonical spellings; `vortex` is a little more lenient (names ignore case, as above) and
-reports every problem at once, each with its JSON path. See `vortex validate` in [cli.md](cli.md#validate-file).
+The JSON Schema checks canonical spellings; `vortex2` is a little more lenient (names ignore case, as above) and
+reports every problem at once, each with its JSON path. See `vortex2 validate` in [cli.md](cli.md#validate-file).

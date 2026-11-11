@@ -458,7 +458,7 @@ writer MUST NOT produce them.
 *Note for tool authors (non-normative).* Everything in this document is about **bytes**. Where the editor *displays*
 a different number from the byte (channels, velocity curves, ribbon banks and `split.key` are shown as byte + 1;
 transpose as byte - 12), a human-facing format should say clearly which of the two it uses, and enumerations list their
-"yes" side first (`Yes`, `On`, `Split On` are byte `00`). The `vortex-cli` JSON format shows the editor's numbers; its
+"yes" side first (`Yes`, `On`, `Split On` are byte `00`). The `vortex2-cli` JSON format shows the editor's numbers; its
 translation table is in `docs/preset-format.md`, "Numbers and the raw bytes".
 
 
