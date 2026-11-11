@@ -24,7 +24,7 @@ vortex convert lead.json device --slot 3             # apply them (verifies afte
 vortex convert lead.json lead.vw2 --slot 3           # or make a file for the vendor editor
 vortex convert lead.json lead.syx --slot 3           # or a SysEx file
 vortex convert device now.json --slot 3              # read a slot back as JSON
-vortex reset 3                                       # slot 3 back to factory defaults
+vortex factory device 3                              # slot 3 back to factory defaults
 vortex backup my-keytar/                             # save all 25 slots
 vortex pair 123456                                   # pair with a wireless dongle (last six digits of the sticker number)
 vortex pair 123456 pair.syx                          # or save that pairing message as a SysEx file

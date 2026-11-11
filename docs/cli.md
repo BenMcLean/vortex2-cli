@@ -78,24 +78,28 @@ vortex convert device current.json -s 7            # what is on the keytar right
 vortex convert tweak.json device -s 7 --dry-run    # preview a change
 vortex convert tweak.json device -s 7              # apply only the fields in tweak.json
 vortex convert lead.vw2 device -s 3                # replace slot 3 with a vendor-editor preset
-vortex reset 3                                     # put slot 3 back to factory defaults
+vortex factory device 3                            # put slot 3 back to factory defaults
+vortex factory template.json 3                     # a factory-default file to work from
 cat lead.json | vortex convert - device -s 3 -y
 ```
 
-## `reset [SLOT...] [--all]`
+## `factory DEST [SLOT...] [--all]`
 
-Writes Alesis's factory-default preset into the named slots (or all 25 with `--all`). Nothing is read first and no
-file is needed. Like a real factory reset, each slot's Program Change number is its own index.
+Writes Alesis's factory-default preset to `DEST`, which is `device` (the keytar) or a file / `-` (stdout), the same
+choice `convert` offers. Nothing is read first. Like a real factory reset, each slot's Program Change number is its own index.
 
 ```sh
-vortex reset 3            # slot 3 back to factory defaults
-vortex reset 3 5 7        # several slots
-vortex reset --all        # all 25
-vortex reset 3 --dry-run  # say what would happen; write nothing
+vortex factory device 3            # slot 3 back to factory defaults
+vortex factory device 3 5 7        # several slots
+vortex factory device --all        # all 25
+vortex factory device 3 --dry-run  # say what would happen; write nothing
+vortex factory template.json       # a complete factory-default JSON file to edit
+vortex factory lead.syx 3          # .syx needs a slot; .json and .vw2 take one optionally
 ```
 
-It asks once before writing (`-y`, `--yes` skips that; required when stdin isn't a terminal), then writes each slot
-and reads it back to verify. The connection options below apply.
+To the keytar it asks once before writing (`-y`, `--yes` skips that; required when stdin isn't a terminal), then writes
+each slot and reads it back to verify; the connection options below apply. A file holds one preset, so name at most one
+slot; an existing file is only replaced with `--force`, and `--to` overrides the format guessed from the extension.
 
 ## `backup DIRECTORY`
 
@@ -142,7 +146,7 @@ Lists MIDI input/output ports and whether a "Vortex Wireless 2" is visible.
 
 Print the table of every JSON key (see also [fields.md](fields.md)) and the JSON Schema.
 
-## Connection options (`convert`, `reset`, `backup`, `pair`)
+## Connection options (`convert`, `factory`, `backup`, `pair`)
 
 | option | default | |
 |---|---|---|

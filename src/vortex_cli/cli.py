@@ -191,27 +191,53 @@ def cmd_convert(args) -> int:
 	return 0
 
 
-# -- reset ------------------------------------------------------------------------------------
+# -- factory ----------------------------------------------------------------------------------
 
 
-def cmd_reset(args) -> int:
-	if args.all == bool(args.slots):
-		raise UsageError("name the slots to reset (e.g. 'reset 3 5'), or pass --all")
+def cmd_factory(args) -> int:
+	dst = args.dest
+	if args.all and args.slots:
+		raise UsageError("name the slots (e.g. 'factory device 3 5') or pass --all, not both")
 	slots = list(range(1, vl.SLOT_COUNT + 1)) if args.all else sorted(set(args.slots))
 	for n in slots:
 		try:
 			vl.check_slot(n)
 		except ValueError as e:
 			raise UsageError(str(e)) from None
-	which = "all 25 slots" if args.all else "slot " + ", ".join(map(str, slots))
-	if args.dry_run:
-		print(f"dry run: would reset {which} to factory defaults")
+
+	if dst == DEVICE:
+		if not slots:
+			raise UsageError("name the slots to reset (e.g. 'factory device 3 5'), or pass --all")
+		which = "all 25 slots" if args.all else "slot " + ", ".join(map(str, slots))
+		if args.dry_run:
+			print(f"dry run: would reset {which} to factory defaults")
+			return 0
+		confirm(args, f"Reset {which} to factory defaults on the keytar?")
+		with open_device(args) as kt:
+			for n in slots:
+				kt.write(n, vl.factory(n))
+				print(f"slot {n} reset and verified")
 		return 0
-	confirm(args, f"Reset {which} to factory defaults on the keytar?")
-	with open_device(args) as kt:
-		for n in slots:
-			kt.write(n, vl.factory(n))
-			print(f"slot {n} reset and verified")
+
+	# a file (or stdout) holds one preset
+	if args.all or len(slots) > 1:
+		raise UsageError("a file holds one preset: name at most one slot")
+	slot = slots[0] if slots else None
+	fmt = "json" if dst == STDIO else format_of(dst, args.to_format)
+	if fmt is None:
+		raise UsageError(
+			f"cannot tell the output format of {dst!r}; use .json, .vw2 or .syx, or --to"
+		)
+	if fmt == "syx" and slot is None:
+		raise UsageError("a .syx file needs a slot: name one (e.g. 'factory out.syx 3')")
+	data = vl.dump(vl.factory(slot), fmt, slot)
+	if args.dry_run:
+		print(f"dry run: would write {len(data)} bytes of {fmt} to {dst}", file=sys.stderr)
+	elif dst == STDIO:
+		sys.stdout.write(data.decode("utf-8"))
+	else:
+		write_file(dst, data, args.force)
+		eprint(f"wrote {dst} ({fmt}{'' if slot is None else f', slot {slot}'})")
 	return 0
 
 
@@ -424,20 +450,28 @@ def build_parser() -> argparse.ArgumentParser:
 	b.set_defaults(func=cmd_backup)
 
 	r = sub.add_parser(
-		"reset",
+		"factory",
 		parents=[dev],
-		help="set slots back to Alesis's factory defaults",
-		description="Write Alesis's factory-default preset into the given slots (or --all). Nothing is read first.",
+		help="write Alesis's factory-default preset to the keytar or a file",
+		description="Write Alesis's factory-default preset to DEST: 'device' (the keytar; name slots or --all; "
+		"nothing is read first) or a file / '-' (a template to work from; at most one slot).",
 	)
+	r.add_argument("dest", help="'device', an output file, or '-'")
 	r.add_argument("slots", nargs="*", type=int, help="slot numbers 1-25")
-	r.add_argument("--all", action="store_true", help="reset all 25 slots")
+	r.add_argument("--all", action="store_true", help="all 25 slots (device only)")
 	r.add_argument(
-		"-n", "--dry-run", action="store_true", help="say what would be reset; write nothing"
+		"--to", dest="to_format", choices=vl.FORMATS, help="output file format (default: from extension)"
+	)
+	r.add_argument(
+		"-n", "--dry-run", action="store_true", help="say what would be written; write nothing"
 	)
 	r.add_argument(
 		"-y", "--yes", action="store_true", help="do not ask before writing to the keytar"
 	)
-	r.set_defaults(func=cmd_reset)
+	r.add_argument(
+		"--force", action="store_true", help="overwrite an existing output file"
+	)
+	r.set_defaults(func=cmd_factory)
 
 	pr = sub.add_parser(
 		"pair",

@@ -132,23 +132,34 @@ def read_slot(capsys, port, n):
 	return json.loads(run(capsys, "convert", "device", "-", "-s", n, *port, *SIM)[1])
 
 
-def test_reset_pushes_factory_defaults(tmp_path, doc, capsys):
+def test_factory_pushes_factory_defaults(tmp_path, doc, capsys):
 	port = ["--port", f"sim:{tmp_path / 'kt.json'}"]
 	assert run(capsys, "convert", doc, "device", "-s", 4, "-y", *port, *SIM)[0] == 0
 	assert read_slot(capsys, port, 4)["name"] == "Lead"
-	assert run(capsys, "reset", 4, "--dry-run", *port, *SIM)[0] == 0
+	assert run(capsys, "factory", "device", 4, "--dry-run", *port, *SIM)[0] == 0
 	assert read_slot(capsys, port, 4)["name"] == "Lead"
-	code, out, _ = run(capsys, "reset", 4, "-y", *port, *SIM)
+	code, out, _ = run(capsys, "factory", "device", 4, "-y", *port, *SIM)
 	assert code == 0 and "verified" in out
 	assert vl.apply_doc(vl.factory(4), read_slot(capsys, port, 4))[0] == vl.factory(4)
 	assert not list(tmp_path.glob("vortex-backups"))
 
 
-def test_reset_argument_rules(capsys):
-	assert run(capsys, "reset", "--port", "sim")[0] == 2  # nothing named
-	assert run(capsys, "reset", 3, "--all", "--port", "sim")[0] == 2
-	assert run(capsys, "reset", 26, "-y", "--port", "sim")[0] == 2
-	assert run(capsys, "reset", 3, "--port", "sim")[0] == 2  # no TTY: needs --yes
+def test_factory_argument_rules(capsys):
+	assert run(capsys, "factory", "device", "--port", "sim")[0] == 2  # nothing named
+	assert run(capsys, "factory", "device", 3, "--all", "--port", "sim")[0] == 2
+	assert run(capsys, "factory", "device", 26, "-y", "--port", "sim")[0] == 2
+	assert run(capsys, "factory", "device", 3, "--port", "sim")[0] == 2  # no TTY: needs --yes
+
+
+def test_factory_to_file(tmp_path, capsys):
+	out = tmp_path / "t.json"
+	assert run(capsys, "factory", out, 5)[0] == 0
+	assert vl.apply_doc(vl.factory(5), json.loads(out.read_text()))[0] == vl.factory(5)
+	assert run(capsys, "factory", out)[0] == 2  # exists
+	assert run(capsys, "factory", tmp_path / "a.syx")[0] == 2  # .syx needs a slot
+	assert run(capsys, "factory", tmp_path / "a.syx", 2)[0] == 0
+	assert vl.load((tmp_path / "a.syx").read_bytes()).slot == 2
+	assert run(capsys, "factory", tmp_path / "b.json", 1, 2)[0] == 2  # one preset per file
 
 
 def test_complete_input_is_written_without_reading(tmp_path, capsys):
